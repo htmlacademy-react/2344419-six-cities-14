@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Наталья Тюрина](https://up.htmlacademy.ru/react/14/user/2344419).
-* Наставник: `Arthur Litovko`.
+* Наставник: [Arthur Litovko](https://github.com/baileys-li).
 
 ---
 
