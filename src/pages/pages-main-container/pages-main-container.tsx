@@ -1,18 +1,29 @@
-import PagesCart from '../pages-cart/pages-cart.tsx';
+
+import PagesCard from '../pages-card/pages-card.tsx';
 
 type PagesMainProps = {
   placeCartPrice: number;
+  countRentalOffers: number;
 }
 
-function PagesMainContainer({placeCartPrice}:PagesMainProps):JSX.Element{
-  return(
+function PagesMainContainer({ placeCartPrice, countRentalOffers }: PagesMainProps): JSX.Element {
+
+  const getCarts = (count: number) => {
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      result.push(<PagesCard key={i} placeCartPrice={placeCartPrice} />);
+    }
+    return result;
+  };
+
+  return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
               <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
             <nav className="header__nav">
@@ -82,7 +93,7 @@ function PagesMainContainer({placeCartPrice}:PagesMainProps):JSX.Element{
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
-              Popular
+                  Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
@@ -96,17 +107,7 @@ function PagesMainContainer({placeCartPrice}:PagesMainProps):JSX.Element{
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {PagesCart({placeCartPrice})}
-
-                {PagesCart({placeCartPrice})}
-
-                {PagesCart({placeCartPrice})}
-
-                {PagesCart({placeCartPrice})}
-
-                {PagesCart({placeCartPrice})}
-
-                {PagesCart({placeCartPrice})}
+                {getCarts(countRentalOffers)}
 
               </div>
             </section>

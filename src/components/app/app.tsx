@@ -2,10 +2,11 @@ import PagesMainContainer from '../../pages/pages-main-container/pages-main-cont
 
 type AppProps = {
   placeCartPrice: number;
+  countRentalOffers: number;
 }
 
-export default function App({placeCartPrice}:AppProps):JSX.Element{
+export default function App({placeCartPrice,countRentalOffers}:AppProps):JSX.Element{
   return(
-    <PagesMainContainer placeCartPrice = {placeCartPrice}/>
+    <PagesMainContainer placeCartPrice = {placeCartPrice} countRentalOffers = {countRentalOffers}/>
   );
 }
