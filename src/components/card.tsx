@@ -2,9 +2,6 @@ type CitesPlacesProps = {
   placeCartPrice: number;
 }
 
-const divStyle = {
-  width: '80%',
-};
 
 function PagesCart ({placeCartPrice} :CitesPlacesProps):JSX.Element{
   return (
@@ -32,7 +29,7 @@ function PagesCart ({placeCartPrice} :CitesPlacesProps):JSX.Element{
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={divStyle}></span>
+            <span style={{width: '80%',}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

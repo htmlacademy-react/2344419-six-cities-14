@@ -1,20 +1,20 @@
 
-import PagesCard from '../pages-card/pages-card.tsx';
+import PagesCard from '../../components/card.tsx';
 
 type PagesMainProps = {
   placeCartPrice: number;
   countRentalOffers: number;
 }
+const getCarts = (count: number, price: number) => {
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(<PagesCard key={i} placeCartPrice={price} />);
+  }
+  return result;
+};
 
 function PagesMainContainer({ placeCartPrice, countRentalOffers }: PagesMainProps): JSX.Element {
 
-  const getCarts = (count: number) => {
-    const result = [];
-    for (let i = 0; i < count; i++) {
-      result.push(<PagesCard key={i} placeCartPrice={placeCartPrice} />);
-    }
-    return result;
-  };
 
   return (
     <div className="page page--gray page--main">
@@ -107,7 +107,7 @@ function PagesMainContainer({ placeCartPrice, countRentalOffers }: PagesMainProp
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {getCarts(countRentalOffers)}
+                {getCarts(countRentalOffers, placeCartPrice)}
 
               </div>
             </section>

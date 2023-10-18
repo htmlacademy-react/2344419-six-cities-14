@@ -1,11 +1,4 @@
 
-const divStyleA = {
-  width: '80%',
-};
-const divStyleB = {
-  width: '100%',
-};
-
 function PagesFavoritesContainer():JSX.Element{
   return(
     <section className="favorites">
@@ -44,7 +37,7 @@ function PagesFavoritesContainer():JSX.Element{
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={divStyleA}></span>
+                    <span style={{width: '80%'}}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -76,7 +69,7 @@ function PagesFavoritesContainer():JSX.Element{
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={divStyleA}></span>
+                    <span style={{width: '80%'}}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -119,7 +112,7 @@ function PagesFavoritesContainer():JSX.Element{
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={divStyleB}></span>
+                    <span style={{width: '100%'}}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
