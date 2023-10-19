@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet-async';
+
 function PagesLoginContainer():JSX.Element {
   return (
     <div className="page page--gray page--login">
@@ -16,6 +18,11 @@ function PagesLoginContainer():JSX.Element {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
+            <Helmet>
+              <title>
+                Вход и регистрация
+              </title>
+            </Helmet>
             <h1 className="login__title">Sign in</h1>
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 
 function PagesFavoritesContainer():JSX.Element{
   return(
@@ -33,6 +34,11 @@ function PagesFavoritesContainer():JSX.Element{
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
+          <Helmet>
+            <title>
+              Избранное
+            </title>
+          </Helmet>
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">

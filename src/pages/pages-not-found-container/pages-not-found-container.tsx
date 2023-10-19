@@ -1,13 +1,20 @@
+import { Helmet } from 'react-helmet-async';
+import {Link} from 'react-router-dom';
 
 function PagesNotFoundContainer():JSX.Element{
   return(
     <div style={{ marginTop: 100}}>
+      <Helmet>
+        <title>
+          Ошибка!
+        </title>
+      </Helmet>
       <h1 className="offer__name">
     404 Not Found
         <br/>
-        <a className="header__logo-link" href="http://localhost:5173/">
+        <Link className="header__logo-link" to="http://localhost:5173/">
          Вернуться на главную страницу
-        </a>
+        </Link>
       </h1>
     </div>
   );
