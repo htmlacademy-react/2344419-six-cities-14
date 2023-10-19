@@ -1,8 +1,14 @@
+import { Helmet } from 'react-helmet-async';
 
 function PagesOfferContainer():JSX.Element{
   return (
     <>
       <section className="offer">
+        <Helmet>
+          <title>
+           Отзывы и рейтинг
+          </title>
+        </Helmet>
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
             <div className="offer__image-wrapper">

@@ -1,5 +1,6 @@
 
 import PagesCard from '../../components/card.tsx';
+import { Helmet } from 'react-helmet-async';
 
 type PagesMainProps = {
   placeCartPrice: number;
@@ -51,6 +52,9 @@ function PagesMainContainer({ placeCartPrice, countRentalOffers }: PagesMainProp
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
+            <Helmet>
+              <title>Главная страница</title>
+            </Helmet>
             <ul className="locations__list tabs__list">
               <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="#">
