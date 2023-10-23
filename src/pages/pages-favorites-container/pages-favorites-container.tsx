@@ -1,6 +1,11 @@
 import { Helmet } from 'react-helmet-async';
+import { TypesOffersMock } from '../../types/types-mock';
 
-function PagesFavoritesContainer():JSX.Element{
+type FavoritesProps = {
+  offers: TypesOffersMock[];
+}
+
+function PagesFavoritesContainer({offers}:FavoritesProps):JSX.Element{
   return(
     <div className="page">
       <header className="header">

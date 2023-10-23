@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { offersMock } from './mock/offers';
 
 export const Setting = {
   PlaceCartPrice : 124,
@@ -16,6 +17,7 @@ root.render(
     <App
       placeCartPrice = {Setting.PlaceCartPrice}
       countRentalOffers = {Setting.CountRentalOffers}
+      offers={offersMock}
     />
   </React.StrictMode>
 );
