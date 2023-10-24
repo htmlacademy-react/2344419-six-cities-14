@@ -1,19 +1,13 @@
 
-import PagesCard from '../../components/card.tsx';
 import { Helmet } from 'react-helmet-async';
-import { TypesOffersMock } from '../../types/types-mock.ts';
+import { TypeOfferMock } from '../../types/types-mock.ts';
 import OffersList from '../../components/offers-list.tsx';
 
 type PagesMainProps = {
-  placeCartPrice: number;
-  countRentalOffers: number;
-  offers: TypesOffersMock[];
-
+  offers: TypeOfferMock[];
 }
 
-
-function PagesMainContainer({ placeCartPrice, countRentalOffers, offers }: PagesMainProps): JSX.Element {
-
+function PagesMainContainer({ offers }: PagesMainProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">

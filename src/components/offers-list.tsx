@@ -1,8 +1,8 @@
-import { TypesOffersMock } from '../types/types-mock';
+import { TypeOfferMock } from '../types/types-mock';
 import PagesCard from './card';
 
 type OffersListProps = {
-  offers: TypesOffersMock[];
+  offers: TypeOfferMock[];
 }
 
 
@@ -10,7 +10,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
 
   return (<>
     {offers.map((offer) => <PagesCard key={offer.id} offer={offer}/>)}
-          </>);
+  </>);
 }
 
 

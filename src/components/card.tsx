@@ -1,14 +1,15 @@
-import { TypesOffersMock } from '../types/types-mock';
+import { Link } from 'react-router-dom';
+import { TypeOfferMock } from '../types/types-mock';
 
 type CitesPlacesProps = {
-  offer: TypesOffersMock;
-
+  offer: TypeOfferMock;
 }
-
 
 function PagesCard ({offer} :CitesPlacesProps):JSX.Element{
 
-  const {price, previewImage, description, rating, isFavorite,type,isPremium} = offer;
+  const {price, previewImage, description, rating, isFavorite,type,isPremium, id} = offer;
+  // TODO: переписать a href на LInk
+
   return (
     <article className="cities__card place-card">
       {isPremium ?
@@ -17,9 +18,9 @@ function PagesCard ({offer} :CitesPlacesProps):JSX.Element{
         </div>
         : <div></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -41,7 +42,7 @@ function PagesCard ({offer} :CitesPlacesProps):JSX.Element{
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{description}</a>
+          <Link to={`offer/${id}`}>{description}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
