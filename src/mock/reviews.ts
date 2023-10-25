@@ -34,8 +34,7 @@ const reviewsMock: TypeReviewMock[] = [
       avatarUrl: 'img/9.png',
       id: 6,
       isPro: true,
-      name: 'Hally'
-    }
+      name: 'Hally' }
   },
   {
     comment: 'Good',

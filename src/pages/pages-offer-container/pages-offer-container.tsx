@@ -3,6 +3,7 @@ import { TypeOfferMock, TypeReviewMock } from '../../types/types-mock';
 import OfferCard from '../../components/offer-card';
 import { useParams } from 'react-router-dom';
 
+
 type OffersProps = {
   offers: TypeOfferMock[];
   reviews: TypeReviewMock[];
@@ -10,6 +11,8 @@ type OffersProps = {
 
 
 function PagesOfferContainer({offers, reviews}:OffersProps):JSX.Element{
+  // const [ratingStars, setRatingStars] = useState(0);
+  // const [reviewComment,setReviewComment] = useState('');
 
   const { id } = useParams();
 

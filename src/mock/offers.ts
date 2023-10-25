@@ -86,7 +86,9 @@ const offersMock: TypeOfferMock[] = [
     'price': 1426,
     'goods': [
       'Laptop friendly workspace',
-      'Breakfast'
+      'Breakfast',
+      'Wi-Fi',
+      'Excursion'
     ],
   },{
     city: {
@@ -128,8 +130,9 @@ const offersMock: TypeOfferMock[] = [
     'maxAdults': 2,
     'price': 147,
     'goods': [
-      'Laptop friendly workspace',
-      'Breakfast'
+      'an extra bed',
+      'swimming pool',
+      'Internet',
     ],
   },{
     city: {
@@ -172,8 +175,8 @@ const offersMock: TypeOfferMock[] = [
     'maxAdults': 2,
     'price': 166,
     'goods': [
-      'Laptop friendly workspace',
-      'Breakfast'
+      'transport to the station',
+      'Internet',
     ],
   },
 ];

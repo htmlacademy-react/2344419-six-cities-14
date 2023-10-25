@@ -8,7 +8,6 @@ type CitesPlacesProps = {
 function PagesCard ({offer} :CitesPlacesProps):JSX.Element{
 
   const {price, previewImage, description, rating, isFavorite,type,isPremium, id} = offer;
-  // TODO: переписать a href на LInk
 
   return (
     <article className="cities__card place-card">
