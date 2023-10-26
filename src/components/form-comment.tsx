@@ -4,7 +4,7 @@ type FormComentProps ={
   fieldChangeHandle: (value: string)=> void;
   ratingStars: boolean[];
   ratingChangeHandle: (value: boolean[])=> void;
-  handleSubmit:()=>[];
+  handleSubmit:()=>void;
 }
 
 function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChangeHandle, handleSubmit}: FormComentProps):JSX.Element{
