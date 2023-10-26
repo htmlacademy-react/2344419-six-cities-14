@@ -11,8 +11,7 @@ type OffersProps = {
 
 
 function PagesOfferContainer({offers, reviews}:OffersProps):JSX.Element{
-  // const [ratingStars, setRatingStars] = useState(0);
-  // const [reviewComment,setReviewComment] = useState('');
+
 
   const { id } = useParams();
 

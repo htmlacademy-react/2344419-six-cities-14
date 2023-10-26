@@ -1,6 +1,5 @@
 
 import { TypeReviewMock } from '../types/types-mock';
-import FormComment from './form-comment';
 
 type OfferCardProps = {
 reviews: TypeReviewMock[];
@@ -11,9 +10,9 @@ function OfferReviews({ reviews}:OfferCardProps):JSX.Element{
   return(
     <>
       {reviews.map((review,index)=> {
-        const {rating, comment,date, user:{avatarUrl, name}} = review;
+        const {rating, comment,date, user:{avatarUrl, name,id}} = review;
         return(
-          <section key={index} className="offer__reviews reviews">
+          <section key={id} className="offer__reviews reviews">
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{index + 1}</span></h2>
             <ul className="reviews__list">
               <li className="reviews__item">
@@ -39,7 +38,6 @@ function OfferReviews({ reviews}:OfferCardProps):JSX.Element{
                 </div>
               </li>
             </ul>
-            <FormComment />
           </section>
         );
       })}

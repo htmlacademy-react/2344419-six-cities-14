@@ -1,6 +1,8 @@
 
 import { TypeOfferMock, TypeReviewMock } from '../types/types-mock';
 import OfferReviews from './offer-reviews';
+import { useState } from 'react';
+import FormComment from './form-comment';
 
 type OfferCardProps = {
 offer:TypeOfferMock;
@@ -9,6 +11,19 @@ reviews: TypeReviewMock[];
 
 
 function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
+  const [reviewComment,setReviewComment] = useState<string>('');
+
+  const [ratingStars, setRatingStars] = useState(()=>[false, false, false, false, false]);
+  const fieldChangeHandle = (evt: string) => {
+    setReviewComment(evt);
+  };
+  const ratingChangeHandle = (evt: boolean[]) => {
+    setRatingStars(evt);
+  };
+  const handleSubmit = () => {
+    console.log('Отправлена форма.');
+  };
+
 
   const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods} = offer;
 
@@ -93,10 +108,17 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
             </div>
           </div>
           <OfferReviews reviews={reviews} />
-
+          <FormComment
+            reviewComment={reviewComment}
+            fieldChangeHandle={fieldChangeHandle}
+            ratingStars={ratingStars}
+            ratingChangeHandle={ratingChangeHandle}
+            handleSubmit={handleSubmit}
+          />
         </div>
       </div>
     </>
   );
 }
+
 export default OfferCard;
