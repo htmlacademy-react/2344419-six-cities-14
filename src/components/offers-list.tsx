@@ -8,9 +8,10 @@ type OffersListProps = {
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
 
-  return (<>
-    {offers.map((offer) => <PagesCard key={offer.id} offer={offer}/>)}
-  </>);
+  return (
+    <>
+      {offers.map((offer) => <PagesCard key={offer.id} offer={offer}/>)}
+    </>);
 }
 
 

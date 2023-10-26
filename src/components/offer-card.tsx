@@ -21,7 +21,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
     setRatingStars(evt);
   };
   const handleSubmit = () => {
-    console.log('Отправлена форма.');
+    //console.log('Отправлена форма.');
   };
 
 

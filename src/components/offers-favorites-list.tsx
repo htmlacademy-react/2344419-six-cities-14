@@ -8,9 +8,10 @@ type FavoritesOffersListProps = {
 
 
 function OffersFavoritList({ offers }: FavoritesOffersListProps): JSX.Element {
-  return (<>
-    {offers.map((offer) => offer.isFavorite ? <FavoritesCard key={offer.id} offer={offer}/> : '')}
-          </>);
+  return (
+    <>
+      {offers.map((offer) => offer.isFavorite ? <FavoritesCard key={offer.id} offer={offer}/> : '')}
+    </>);
 }
 
 
