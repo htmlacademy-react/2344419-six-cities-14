@@ -1,21 +1,13 @@
 
-import PagesCard from '../../components/card.tsx';
 import { Helmet } from 'react-helmet-async';
+import { TypeOfferMock } from '../../types/types-mock.ts';
+import OffersList from '../../components/offers-list.tsx';
 
 type PagesMainProps = {
-  placeCartPrice: number;
-  countRentalOffers: number;
+  offers: TypeOfferMock[];
 }
-const getCarts = (count: number, price: number) => {
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    result.push(<PagesCard key={i} placeCartPrice={price} />);
-  }
-  return result;
-};
 
-function PagesMainContainer({ placeCartPrice, countRentalOffers }: PagesMainProps): JSX.Element {
-
+function PagesMainContainer({ offers }: PagesMainProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
@@ -111,7 +103,7 @@ function PagesMainContainer({ placeCartPrice, countRentalOffers }: PagesMainProp
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {getCarts(countRentalOffers, placeCartPrice)}
+                <OffersList offers={offers}/>
 
               </div>
             </section>
