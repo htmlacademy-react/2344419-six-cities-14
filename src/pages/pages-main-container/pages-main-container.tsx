@@ -1,13 +1,22 @@
-
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { TypeOfferMock } from '../../types/types-mock.ts';
 import OffersList from '../../components/offers-list.tsx';
+import MyMap from '../../components/map.tsx';
 
 type PagesMainProps = {
   offers: TypeOfferMock[];
 }
 
-function PagesMainContainer({ offers }: PagesMainProps): JSX.Element {
+function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
+  const [selectedPoint, setSelectedPoint] = useState<TypeOfferMock>();
+
+  const handleListItemHover = (offerId: number) => {
+    const currentPoint = offers.find((elem) =>
+      elem.id === offerId,
+    );
+    setSelectedPoint(currentPoint);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -102,13 +111,12 @@ function PagesMainContainer({ offers }: PagesMainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-
-                <OffersList offers={offers}/>
-
+                <OffersList offers={offers} onListItemHover={handleListItemHover}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <MyMap offers={offers} selectedPoint={selectedPoint}/>
+
             </div>
           </div>
         </div>

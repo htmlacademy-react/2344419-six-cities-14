@@ -3,16 +3,22 @@ import { TypeOfferMock } from '../types/types-mock';
 
 type CitesPlacesProps = {
   offer: TypeOfferMock;
+  onListItemHover: (offer_id: number) => void;
 }
 
-function PagesCard ({offer} :CitesPlacesProps):JSX.Element{
+function PagesCard ({offer, onListItemHover} :CitesPlacesProps):JSX.Element{
 
   const {price, previewImage, description, rating, isFavorite,type,isPremium, id} = offer;
 
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseEnter={(event)=>{
+      event.preventDefault();
+      onListItemHover(id);
+    } }
+    >
       {isPremium ?
-        <div className="place-card__mark">
+        <div className="place-card__mark" >
           <span>Premium</span>
         </div>
         : <div></div>}
