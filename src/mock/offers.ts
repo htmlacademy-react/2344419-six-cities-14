@@ -3,11 +3,11 @@ import { TypeOfferMock } from '../types/types-mock';
 const offersMock: TypeOfferMock[] = [
   {
     city: {
-      name: 'Dusseldorf',
+      name: 'Amsterdam',
       location: {
-        latitude: 51.225402,
-        longitude: 6.776314,
-        zoom: 13
+        latitude: 52.3740300,
+        longitude:  4.8896900,
+        zoom: 11
       }
     },
     previewImage: 'https://14.react.pages.academy/static/offer/1.jpg',
@@ -19,7 +19,7 @@ const offersMock: TypeOfferMock[] = [
       'https://14.react.pages.academy/static/offer/1.jpg',
       'https://14.react.pages.academy/static/offer/3.jpg',
     ],
-    'description': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     id:1,
     host : {
       'avatarUrl': 'img/1.png',
@@ -28,30 +28,30 @@ const offersMock: TypeOfferMock[] = [
       'name': 'Angelina'
     },
     location : {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
+      'latitude': 52.3909553943508,
+      'longitude':  4.85309666406198,
+      'zoom': 11
     },
-    'title': 'Waterfront with extraordinary view',
-    'isFavorite': false,
-    'isPremium': false,
-    'rating': 4.8,
-    'type': 'room',
-    'bedrooms': 1,
-    'maxAdults': 2,
-    'price': 142,
-    'goods': [
+    title: 'Waterfront with extraordinary view',
+    isFavorite: false,
+    isPremium: false,
+    rating: 4.8,
+    type: 'room',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 142,
+    goods: [
       'Влево',
       'Вправо'
     ],
   },
   {
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 51.225402,
-        longitude: 6.776314,
-        zoom: 13
+        latitude: 52.3740300,
+        longitude:  4.8896900,
+        zoom: 11
       }
     },
     previewImage: 'https://14.react.pages.academy/static/offer/2.jpg',
@@ -72,19 +72,19 @@ const offersMock: TypeOfferMock[] = [
       'name': 'Alina'
     },
     location : {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
+      'latitude': 52.3609553943508,
+      'longitude':  4.85309666406198,
+      'zoom': 11
     },
-    'title': 'Waterfront with extraordinary view',
-    'isFavorite': true,
-    'isPremium': false,
-    'rating': 4.5,
-    'type': 'room',
-    'bedrooms': 1,
-    'maxAdults': 2,
-    'price': 1426,
-    'goods': [
+    title: 'Waterfront with extraordinary view',
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.5,
+    type: 'room',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 1426,
+    goods: [
       'Laptop friendly workspace',
       'Breakfast',
       'Wi-Fi',
@@ -92,11 +92,11 @@ const offersMock: TypeOfferMock[] = [
     ],
   },{
     city: {
-      name: 'Cologne',
+      name: 'Amsterdam',
       location: {
-        latitude: 51.225402,
-        longitude: 6.776314,
-        zoom: 13
+        latitude: 52.3740300,
+        longitude:  4.8896900,
+        zoom: 11
       }
     },
     previewImage: 'https://14.react.pages.academy/static/offer/3.jpg',
@@ -108,39 +108,40 @@ const offersMock: TypeOfferMock[] = [
       'https://14.react.pages.academy/static/offer/4.jpg',
       'https://14.react.pages.academy/static/offer/5.jpg',
     ],
-    'description': 'icturesque that hides behind a a river by the unique lightness of Cologne.',
+    description: 'icturesque that hides behind a a river by the unique lightness of Cologne.',
     id:3,
     host : {
-      'avatarUrl': 'img/2.png',
-      'id': 3,
-      'isPro': true,
-      'name': 'Huina'
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Huina'
     },
     location : {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
+      latitude: 52.3609553943508,
+      longitude: 4.929309666406198,
+      zoom: 11
     },
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'isFavorite': false,
-    'isPremium': true,
-    'rating': 4,
+    title: 'Penthouse, 4-5 rooms + 5 balconies',
+    isFavorite: false,
+    isPremium: true,
+    rating: 4,
     type: 'Apartment',
-    'bedrooms': 1,
-    'maxAdults': 2,
-    'price': 147,
-    'goods': [
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 147,
+    goods: [
       'an extra bed',
       'swimming pool',
       'Internet',
     ],
-  },{
+  },
+  {
     city: {
-      name: 'Hamburg',
+      name: 'Amsterdam',
       location: {
-        latitude: 51.225402,
-        longitude: 6.776314,
-        zoom: 13
+        latitude: 52.3740300,
+        longitude:  4.8896900,
+        zoom: 11
       }
     },
     previewImage: 'https://14.react.pages.academy/static/offer/4.jpg',
@@ -153,28 +154,28 @@ const offersMock: TypeOfferMock[] = [
       'https://14.react.pages.academy/static/offer/22.jpg',
 
     ],
-    'description': 'A quind a a river by the unique lightness.',
+    description: 'A quind a a river by the unique lightness.',
     id:4,
     host : {
-      'avatarUrl': 'img/2.png',
-      'id': 3,
-      'isPro': true,
-      'name': 'Faina'
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Faina'
     },
     location : {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
-      'zoom': 8
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 11
     },
-    'title': 'Nice, cozy, warm big bed apartment',
-    'isFavorite': true,
-    'isPremium': false,
-    'rating': 3,
+    title: 'Nice, cozy, warm big bed apartment',
+    isFavorite: true,
+    isPremium: false,
+    rating: 3,
     type: 'hotel',
-    'bedrooms': 1,
-    'maxAdults': 2,
-    'price': 166,
-    'goods': [
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 166,
+    goods: [
       'transport to the station',
       'Internet',
     ],
