@@ -115,8 +115,9 @@ function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <MyMap offers={offers} selectedPoint={selectedPoint}/>
-
+              <section className="cities__map map">
+                <MyMap offers={offers} selectedPoint={selectedPoint}/>
+              </section>
             </div>
           </div>
         </div>
