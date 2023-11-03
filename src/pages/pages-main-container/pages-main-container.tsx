@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { TypeOfferMock } from '../../types/types-mock.ts';
 import OffersList from '../../components/offers-list.tsx';
-import MyMap from '../../components/map.tsx';
+import MainMap from '../../components/main-map.tsx';
 
 type PagesMainProps = {
   offers: TypeOfferMock[];
@@ -116,7 +116,7 @@ function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <MyMap offers={offers} selectedPoint={selectedPoint}/>
+                <MainMap offers={offers} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>
