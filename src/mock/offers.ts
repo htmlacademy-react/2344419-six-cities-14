@@ -3,10 +3,10 @@ import { TypeOfferMock } from '../types/types-mock';
 const offersMock: TypeOfferMock[] = [
   {
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.3740300,
-        longitude:  4.8896900,
+        latitude: 	48.8534,
+        longitude:  2.3488,
         zoom: 11
       }
     },
@@ -28,8 +28,8 @@ const offersMock: TypeOfferMock[] = [
       'name': 'Angelina'
     },
     location : {
-      'latitude': 52.3909553943508,
-      'longitude':  4.85309666406198,
+      'latitude': 48.85345,
+      'longitude':  2.34887,
       'zoom': 11
     },
     title: 'Waterfront with extraordinary view',
@@ -137,6 +137,51 @@ const offersMock: TypeOfferMock[] = [
   },
   {
     city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.5753000,
+        longitude:  10.0153900,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/4.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/22.jpg',
+      'https://14.react.pages.academy/static/offer/13.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+      'https://14.react.pages.academy/static/offer/14.jpg',
+      'https://14.react.pages.academy/static/offer/9.jpg',
+      'https://14.react.pages.academy/static/offer/15.jpg',
+
+    ],
+    description: 'A quind a a river by the unique lightness.',
+    id:4,
+    host : {
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Faina'
+    },
+    location : {
+      latitude: 53.57536,
+      longitude: 10.0153400,
+      zoom: 11
+    },
+    title: 'Nice, cozy, warm big bed apartment',
+    isFavorite: true,
+    isPremium: false,
+    rating: 3,
+    type: 'hotel',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 1661,
+    goods: [
+      'transport to the station',
+      'Internet',
+    ],
+  },
+  {
+    city: {
       name: 'Amsterdam',
       location: {
         latitude: 52.3740300,
@@ -155,7 +200,7 @@ const offersMock: TypeOfferMock[] = [
 
     ],
     description: 'A quind a a river by the unique lightness.',
-    id:4,
+    id:5,
     host : {
       avatarUrl: 'img/2.png',
       id: 3,

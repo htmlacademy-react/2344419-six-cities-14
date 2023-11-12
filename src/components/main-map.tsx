@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { TypeOfferMock } from '../types/types-mock';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import useMap from './use-map';
+import { DEFAULT_CITY } from '../store/reducer';
 
 
 type ListProps = {
@@ -25,7 +26,7 @@ const currentCustomIcon = leaflet.icon({//выбранный маркер
 
 function MainMap({ offers, selectedPoint}:ListProps) {
   const mapRef = useRef(null);
-  const map = useMap({mapRef, city: offers[0].city});
+  const map = useMap({mapRef, city: offers?.[0]?.city || DEFAULT_CITY});
 
   useEffect(() => {
     if (map) {
@@ -45,7 +46,7 @@ function MainMap({ offers, selectedPoint}:ListProps) {
           .addTo(markerLayer);
       });
     }
-  }, [map, offers, selectedPoint, selectedPoint?.city?.name]);
+  }, [map, offers, selectedPoint]);
 
   return (
     <div
