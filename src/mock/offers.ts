@@ -3,10 +3,10 @@ import { TypeOfferMock } from '../types/types-mock';
 const offersMock: TypeOfferMock[] = [
   {
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.3740300,
-        longitude:  4.8896900,
+        latitude: 	48.8534,
+        longitude:  2.3488,
         zoom: 11
       }
     },
@@ -28,8 +28,8 @@ const offersMock: TypeOfferMock[] = [
       'name': 'Angelina'
     },
     location : {
-      'latitude': 52.3909553943508,
-      'longitude':  4.85309666406198,
+      'latitude': 48.85345,
+      'longitude':  2.34887,
       'zoom': 11
     },
     title: 'Waterfront with extraordinary view',
@@ -137,21 +137,21 @@ const offersMock: TypeOfferMock[] = [
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: 'Hamburg',
       location: {
-        latitude: 52.3740300,
-        longitude:  4.8896900,
+        latitude: 53.5753000,
+        longitude:  10.0153900,
         zoom: 11
       }
     },
     previewImage: 'https://14.react.pages.academy/static/offer/4.jpg',
     images: [
+      'https://14.react.pages.academy/static/offer/22.jpg',
       'https://14.react.pages.academy/static/offer/13.jpg',
       'https://14.react.pages.academy/static/offer/11.jpg',
       'https://14.react.pages.academy/static/offer/14.jpg',
       'https://14.react.pages.academy/static/offer/9.jpg',
       'https://14.react.pages.academy/static/offer/15.jpg',
-      'https://14.react.pages.academy/static/offer/22.jpg',
 
     ],
     description: 'A quind a a river by the unique lightness.',
@@ -163,8 +163,277 @@ const offersMock: TypeOfferMock[] = [
       name: 'Faina'
     },
     location : {
+      latitude: 53.57536,
+      longitude: 10.0153400,
+      zoom: 11
+    },
+    title: 'Nice, cozy, warm big bed apartment',
+    isFavorite: true,
+    isPremium: false,
+    rating: 3,
+    type: 'hotel',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 1661,
+    goods: [
+      'transport to the station',
+      'Internet',
+    ],
+  },
+  {
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3740300,
+        longitude:  4.8896900,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/5.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/13.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+      'https://14.react.pages.academy/static/offer/14.jpg',
+      'https://14.react.pages.academy/static/offer/9.jpg',
+      'https://14.react.pages.academy/static/offer/15.jpg',
+      'https://14.react.pages.academy/static/offer/22.jpg',
+
+    ],
+    description: 'A quind a a river by the unique lightness.',
+    id:5,
+    host : {
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Faina'
+    },
+    location : {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
+      zoom: 11
+    },
+    title: 'Nice, cozy, warm big bed apartment',
+    isFavorite: true,
+    isPremium: false,
+    rating: 3,
+    type: 'hotel',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 166,
+    goods: [
+      'transport to the station',
+      'Internet',
+    ],
+  },
+  {
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 	4.34878,
+        longitude:  4.34878,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/6.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/9.jpg',
+      'https://14.react.pages.academy/static/offer/2.jpg',
+      'https://14.react.pages.academy/static/offer/15.jpg',
+      'https://14.react.pages.academy/static/offer/17.jpg',
+      'https://14.react.pages.academy/static/offer/1.jpg',
+      'https://14.react.pages.academy/static/offer/3.jpg',
+    ],
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    id:6,
+    host : {
+      'avatarUrl': 'img/1.png',
+      'id': 3,
+      'isPro': true,
+      'name': 'Angelina'
+    },
+    location : {
+      'latitude': 4.348784,
+      'longitude':  4.348785,
+      'zoom': 11
+    },
+    title: 'Waterfront with extraordinary view',
+    isFavorite: false,
+    isPremium: false,
+    rating: 4.8,
+    type: 'room',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 142,
+    goods: [
+      'Влево',
+      'Вправо'
+    ],
+  },
+  {
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 	4.34878,
+        longitude:  4.34878,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/7.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/16.jpg',
+      'https://14.react.pages.academy/static/offer/4.jpg',
+      'https://14.react.pages.academy/static/offer/8.jpg',
+      'https://14.react.pages.academy/static/offer/10.jpg',
+      'https://14.react.pages.academy/static/offer/5.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+    ],
+    description: 'lightness of Amsterdam.',
+    id:7,
+    host : {
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Alina'
+    },
+    location : {
+      latitude: 	4.348755,
+      longitude:  4.348791,
+      zoom: 11
+    },
+    title: 'Waterfront with extraordinary view',
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.5,
+    type: 'room',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 1426,
+    goods: [
+      'Laptop friendly workspace',
+      'Breakfast',
+      'Wi-Fi',
+      'Excursion'
+    ],
+  },{
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude:  51.2217,
+        longitude: 6.77616,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/8.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/16.jpg',
+      'https://14.react.pages.academy/static/offer/13.jpg',
+      'https://14.react.pages.academy/static/offer/6.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+      'https://14.react.pages.academy/static/offer/4.jpg',
+      'https://14.react.pages.academy/static/offer/5.jpg',
+    ],
+    description: 'icturesque that hides behind a a river by the unique lightness of Cologne.',
+    id:8,
+    host : {
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Huina'
+    },
+    location : {
+      latitude:  51.22175587,
+      longitude: 6.77616744,
+      zoom: 11
+    },
+    title: 'Penthouse, 4-5 rooms + 5 balconies',
+    isFavorite: false,
+    isPremium: true,
+    rating: 4,
+    type: 'Apartment',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 147,
+    goods: [
+      'an extra bed',
+      'swimming pool',
+      'Internet',
+    ],
+  },
+  {
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude:  51.2217,
+        longitude: 6.77616,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/9.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/22.jpg',
+      'https://14.react.pages.academy/static/offer/13.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+      'https://14.react.pages.academy/static/offer/14.jpg',
+      'https://14.react.pages.academy/static/offer/9.jpg',
+      'https://14.react.pages.academy/static/offer/15.jpg',
+
+    ],
+    description: 'A quind a a river by the unique lightness.',
+    id:9,
+    host : {
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Faina'
+    },
+    location : {
+      latitude:  51.2217111,
+      longitude: 6.77616222,
+      zoom: 11
+    },
+    title: 'Nice, cozy, warm big bed apartment',
+    isFavorite: true,
+    isPremium: false,
+    rating: 3,
+    type: 'hotel',
+    bedrooms: 1,
+    maxAdults: 2,
+    price: 1661,
+    goods: [
+      'transport to the station',
+      'Internet',
+    ],
+  },
+  {
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude:  50.9333,
+        longitude:  6.95,
+        zoom: 11
+      }
+    },
+    previewImage: 'https://14.react.pages.academy/static/offer/9.jpg',
+    images: [
+      'https://14.react.pages.academy/static/offer/13.jpg',
+      'https://14.react.pages.academy/static/offer/11.jpg',
+      'https://14.react.pages.academy/static/offer/14.jpg',
+      'https://14.react.pages.academy/static/offer/9.jpg',
+      'https://14.react.pages.academy/static/offer/15.jpg',
+      'https://14.react.pages.academy/static/offer/22.jpg',
+
+    ],
+    description: 'A quind a a river by the unique lightness.',
+    id:9,
+    host : {
+      avatarUrl: 'img/2.png',
+      id: 3,
+      isPro: true,
+      name: 'Faina'
+    },
+    location : {
+      latitude:  50.933311,
+      longitude:  6.9512,
       zoom: 11
     },
     title: 'Nice, cozy, warm big bed apartment',

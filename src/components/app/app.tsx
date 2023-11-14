@@ -23,7 +23,7 @@ export default function App({offers,reviews}:AppProps):JSX.Element{
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<PagesMainContainer offers={offers}/>}
+            element={<PagesMainContainer />}
           />
           <Route
             path={AppRoute.Favorites}

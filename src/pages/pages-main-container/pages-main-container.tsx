@@ -1,22 +1,31 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { TypeOfferMock } from '../../types/types-mock.ts';
+// import { TypeOfferMock } from '../../types/types-mock.ts';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
+import { CityName } from '../../const.ts';
+// import { useNavigate } from 'react-router-dom';
+import { fetchOffer, fetchOffers, setActivCity } from '../../store/action.ts';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks.ts';
 
-type PagesMainProps = {
-  offers: TypeOfferMock[];
-}
+// type PagesMainProps = {
+//   offers: TypeOfferMock[];
+// }
 
-function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
-  const [selectedPoint, setSelectedPoint] = useState<TypeOfferMock>();
+function PagesMainContainer(): JSX.Element {
+  // const [selectedPoint, setSelectedPoint] = useState<TypeOfferMock>();
+  const dispatch = useAppDispatch();
+  const activeCity = useAppSelector((state) => state.activeCity);
+  const offersNew = useAppSelector((state) => state.offers);
+  const selectedPoint = useAppSelector((state) => state.offer);
+  // const navigate = useNavigate();
 
-  const handleListItemHover = (offerId: number) => {
-    const currentPoint = offers.find((elem) =>
-      elem.id === offerId,
-    );
-    setSelectedPoint(currentPoint);
-  };
+  // const handleListItemHover = (offerId: number) => {
+  // const currentPoint = offers.find((elem) =>
+  //   elem.id === offerId,
+  // );
+  // setSelectedPoint(currentPoint);
+  // };
 
   return (
     <div className="page page--gray page--main">
@@ -57,36 +66,21 @@ function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
               <title>Главная страница</title>
             </Helmet>
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              {Object.values(CityName).map((elem) => (
+                <li key={elem} className="locations__item">
+                  <a className={`locations__item-link tabs__item ${elem === activeCity ? 'tabs__item--active' : ''}`}
+                    onClick={
+                      ()=>{
+                        dispatch(setActivCity(elem));
+                        dispatch(fetchOffers(elem));
+                      }
+                    }
+                  >
+                    <span>{elem}</span>
+                  </a>
+                </li>
+              ))}
+
             </ul>
           </section>
         </div>
@@ -94,7 +88,7 @@ function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{offersNew.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -104,19 +98,47 @@ function PagesMainContainer({ offers}: PagesMainProps): JSX.Element {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
+                  <li className="places__option places__option--active" tabIndex={0}
+                    onClick={
+                      ()=>{
+
+                      }
+                    }
+                  >Popular
+                  </li>
+                  <li className="places__option" tabIndex={0}
+                    onClick={
+                      ()=>{
+
+                      }
+                    }
+                  >Price: low to high
+                  </li>
+                  <li className="places__option" tabIndex={0}
+                    onClick={
+                      ()=>{
+
+                      }
+                    }
+                  >Price: high to low
+                  </li>
+                  <li className="places__option" tabIndex={0}
+                    onClick={
+                      ()=>{
+
+                      }
+                    }
+                  >Top rated first
+                  </li>
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} onListItemHover={handleListItemHover}/>
+                <OffersList offers={offersNew} onListItemHover={(offerId: number)=> dispatch(fetchOffer(offerId))}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <MainMap offers={offers} selectedPoint={selectedPoint}/>
+                <MainMap offers={offersNew} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>
