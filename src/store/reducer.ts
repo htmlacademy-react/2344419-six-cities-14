@@ -1,19 +1,19 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { offersMock } from '../mock/offers';
 import { reviewsMock } from '../mock/reviews';
-import { TypeOfferMock, TypeReviewMock } from '../types/types-mock';
-import { dropOffer, fetchFavorites, fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, setActivCity } from './action';
+import { TypeOffer, TypeReviewMock } from '../types/types-mock';
+import { dropOffer, fetchFavorites, fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, setActiveCity, setOffers } from './action';
 import { CityName } from '../const';
 
 
 export const DEFAULT_CITY = CityName.Paris;
 
 type InstialState = {
-  offers: TypeOfferMock[];
-  nearPlaces: TypeOfferMock[];
+  offers: TypeOffer[];
+  nearPlaces: TypeOffer[];
   reviews: TypeReviewMock[];
-  offer: TypeOfferMock | undefined;
-  favorites: TypeOfferMock[];
+  offer: TypeOffer | undefined;
+  favorites: TypeOffer[];
   activeCity: CityName;
 };
 
@@ -22,7 +22,7 @@ const instialState:InstialState = {
   nearPlaces:[],
   reviews:[],
   offer:undefined,
-  favorites:[],
+  favorites: offersMock.filter((offer)=>offer.isFavorite),
   activeCity:DEFAULT_CITY,
 };
 
@@ -34,17 +34,20 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(fetchOffer,(state, action) =>{
       state.offer = offersMock.find((offer)=> offer.id === action.payload) ?? undefined;
     })
-    .addCase(fetchNearPlaces,(state,action)=>{//объявления поблизости
+    .addCase(setOffers,(state, action) =>{
+      state.offers = action.payload;
+    })
+    .addCase(fetchNearPlaces,(state,action)=>{
       state.nearPlaces = offersMock.filter((offer)=>offer.id === action.payload);
     })
-    .addCase(fetchReviews, (state)=>{
-      state.reviews = reviewsMock;
+    .addCase(fetchReviews, (state, action)=>{
+      state.reviews = reviewsMock.filter((review)=>review.id === action.payload);
     })
-    .addCase(dropOffer, (state)=>{//удаление
-      state.offer = offersMock[0];
+    .addCase(dropOffer, (state)=>{
+      state.offer = undefined;
       state.nearPlaces = [];
     })
-    .addCase(setActivCity,(state, action)=>{
+    .addCase(setActiveCity,(state, action)=>{
       state.activeCity = action.payload;
     })
     .addCase(fetchFavorites, (state)=>{

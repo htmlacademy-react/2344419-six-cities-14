@@ -1,14 +1,14 @@
 import {useRef, useEffect} from 'react';
 import leaflet, {layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { TypeOfferMock } from '../types/types-mock';
+import { TypeOffer } from '../types/types-mock';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import useMap from './use-map';
 
 
 type ListProps = {
-  offers: TypeOfferMock[];
-  selectedPoint?:TypeOfferMock;
+  offers: TypeOffer[];
+  selectedPoint?:TypeOffer;
 }
 
 const defaultCustomIcon = leaflet.icon({//дефолтный маркер
