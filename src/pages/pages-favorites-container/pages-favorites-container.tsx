@@ -1,6 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-//import OffersFavoritList from '../../components/offers-favorites-list';
-
 import { useAppSelector } from '../../store/hooks/hooks';
 import FavoritesCard from '../../components/favorites-cards';
 import { TypeOffer } from '../../types/types-mock';

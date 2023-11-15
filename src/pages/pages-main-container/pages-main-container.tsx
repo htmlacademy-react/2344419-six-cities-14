@@ -24,7 +24,7 @@ function PagesMainContainer(): JSX.Element {
   const onChange = (type:TypeSorting) =>{
     dispatch(setOffers(sortingPoint[type](offers)));
   };
-  
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
