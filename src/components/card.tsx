@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { TypeOfferMock } from '../types/types-mock';
+import { TypeOffer } from '../types/types-mock';
 
 type CitesPlacesProps = {
-  offer: TypeOfferMock;
-  onListItemHover: (offer_id: number) => void;
+  offer: TypeOffer;
+  onListItemHover?: (offer_id: number) => void;
 }
 
 function PagesCard ({offer, onListItemHover} :CitesPlacesProps):JSX.Element{
@@ -14,7 +14,7 @@ function PagesCard ({offer, onListItemHover} :CitesPlacesProps):JSX.Element{
   return (
     <article className="cities__card place-card" onMouseEnter={(event)=>{
       event.preventDefault();
-      onListItemHover(id);
+      onListItemHover?.(id);
     } }
     >
       {isPremium ?

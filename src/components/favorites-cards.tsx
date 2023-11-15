@@ -1,7 +1,7 @@
-import { TypeOfferMock } from '../types/types-mock';
+import { TypeOffer } from '../types/types-mock';
 
 type CitesPlacesProps = {
-  offer: TypeOfferMock;
+  offer: TypeOffer;
 }
 
 function FavoritesCard({offer}:CitesPlacesProps):JSX.Element{

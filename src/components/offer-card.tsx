@@ -1,11 +1,11 @@
 
-import { TypeOfferMock, TypeReviewMock } from '../types/types-mock';
+import { TypeOffer, TypeReviewMock } from '../types/types-mock';
 import OfferReviews from './offer-reviews';
 import { useState } from 'react';
 import FormComment from './form-comment';
 
 type OfferCardProps = {
-offer:TypeOfferMock;
+offer:TypeOffer;
 reviews: TypeReviewMock[];
 }
 
@@ -25,7 +25,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   };
 
 
-  const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods} = offer;
+  const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods,} = offer;
 
   return(
     <>
