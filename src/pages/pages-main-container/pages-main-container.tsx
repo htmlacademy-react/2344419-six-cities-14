@@ -1,4 +1,3 @@
-
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
@@ -20,14 +19,12 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
   const myState = useAppSelector((state) => state);
-
   const {activeCity, offers, offer} = myState;
 
   const onChange = (type:TypeSorting) =>{
     dispatch(setOffers(sortingPoint[type](offers)));
   };
-
-
+  
   return (
     <div className="page page--gray page--main">
       <header className="header">

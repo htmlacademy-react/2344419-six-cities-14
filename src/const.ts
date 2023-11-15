@@ -31,6 +31,7 @@ export enum NameSpace {
   Point = 'POINT'
 }
 
+
 export enum Sorting {
   Popular = 'Popular',
   LowToHigh = 'Price: low to high',// От дешёвых к дорогим.
@@ -43,4 +44,5 @@ export const MAX_CUNT_NEAR_PLACES = 3;
 export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
 // export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
+
 

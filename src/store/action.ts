@@ -18,3 +18,4 @@ export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivCity`);//
 
 export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetch`);//
+

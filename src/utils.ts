@@ -1,3 +1,4 @@
+
 import { TypeOffer } from './types/types-mock';
 
 type UtilsType = {
@@ -8,7 +9,6 @@ type UtilsType = {
 const filterCity = ({offers,sityName}:UtilsType) =>{
   offers.filter((offer)=> offer.city.name === sityName);
 };
-
 
 function sortByRating(a:TypeOffer, b:TypeOffer){
   return b.rating - a.rating;

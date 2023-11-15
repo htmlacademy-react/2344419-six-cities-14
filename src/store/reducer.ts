@@ -9,6 +9,7 @@ import { CityName } from '../const';
 export const DEFAULT_CITY = CityName.Paris;
 
 type InstialState = {
+
   offers: TypeOffer[];
   nearPlaces: TypeOffer[];
   reviews: TypeReviewMock[];
