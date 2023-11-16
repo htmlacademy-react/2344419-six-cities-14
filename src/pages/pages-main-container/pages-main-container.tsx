@@ -3,7 +3,7 @@ import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
 import { CityName } from '../../const.ts';
 import { fetchOffer, fetchOffers, setActiveCity, setOffers } from '../../store/action.ts';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
 import { TypeOffer } from '../../types/types-mock.ts';
@@ -19,7 +19,7 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
   const myState = useAppSelector((state) => state);
-  const {activeCity, offers, offer} = myState;
+  const {activeCity, offers, offer, favorites} = myState;
 
   const onChange = (type:TypeSorting) =>{
     dispatch(setOffers(sortingPoint[type](offers)));
@@ -42,7 +42,7 @@ function PagesMainContainer(): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favorites.length}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">

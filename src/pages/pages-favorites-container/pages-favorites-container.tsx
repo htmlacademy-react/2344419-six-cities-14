@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../store/hooks/hooks';
+import { useAppSelector } from '../../hooks/hooks';
 import FavoritesCard from '../../components/favorites-cards';
 import { TypeOffer } from '../../types/types-mock';
 
@@ -18,7 +18,6 @@ function getFavoriteByCity(favorites:TypeOffer[]){
 function PagesFavoritesContainer():JSX.Element{
   const favorites = useAppSelector((state) => state.favorites);
   const favoriteByCity = getFavoriteByCity(favorites);
-
   return(
     <div className="page">
       <header className="header">
@@ -36,7 +35,7 @@ function PagesFavoritesContainer():JSX.Element{
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favorites.length}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">

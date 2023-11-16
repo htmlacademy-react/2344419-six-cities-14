@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import OfferCard from '../../components/offer-card';
 import { useParams } from 'react-router-dom';
 import OffersReviewsList from '../../components/offer-reviews-list.tsx';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { fetchNearPlaces, fetchOffer, dropOffer, fetchReviews } from '../../store/action.ts';
 import { MAX_CUNT_NEAR_PLACES } from '../../const.ts';
 import { useEffect } from 'react';
