@@ -1,30 +1,31 @@
 import {useRef, useEffect} from 'react';
 import leaflet, {layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { TypeOfferMock } from '../types/types-mock';
+import { TypeOffer } from '../types/types-mock';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import useMap from './use-map';
 import { DEFAULT_CITY } from '../store/reducer';
 
 
 type ListProps = {
-  offers: TypeOfferMock[];
-  selectedPoint?:TypeOfferMock;
+  offers: TypeOffer[];
+  selectedPoint?:TypeOffer;
+  fromOffer?: boolean;
 }
 
-const defaultCustomIcon = leaflet.icon({//дефолтный маркер
+const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-const currentCustomIcon = leaflet.icon({//выбранный маркер
+const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-function MainMap({ offers, selectedPoint}:ListProps) {
+function MainMap({ offers, selectedPoint, fromOffer}:ListProps) {
   const mapRef = useRef(null);
   const map = useMap({mapRef, city: offers?.[0]?.city || DEFAULT_CITY});
 
@@ -50,7 +51,12 @@ function MainMap({ offers, selectedPoint}:ListProps) {
 
   return (
     <div
-      style={{height: 772, width:'100%'}}
+      style={fromOffer ? {
+        height:'100%',
+        minHeight:'500px',
+        width:'100%',
+        maxWidth:'1144px',
+        margin:'0 auto',} : {height: 772, width:'100%'}}
       ref={mapRef}
     >
     </div>

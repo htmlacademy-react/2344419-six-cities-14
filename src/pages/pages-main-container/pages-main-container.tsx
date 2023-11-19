@@ -1,31 +1,29 @@
-// import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-// import { TypeOfferMock } from '../../types/types-mock.ts';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
 import { CityName } from '../../const.ts';
-// import { useNavigate } from 'react-router-dom';
-import { fetchOffer, fetchOffers, setActivCity } from '../../store/action.ts';
-import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks.ts';
+import { fetchOffer, fetchOffers, setActiveCity, setOffers } from '../../store/action.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
+import { SortingTypePoint} from '../../sorting.tsx';
+import { TypeSorting } from '../../types/sorting.ts';
+import { TypeOffer } from '../../types/types-mock.ts';
+import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
 
-// type PagesMainProps = {
-//   offers: TypeOfferMock[];
-// }
+const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
+  Popular: (offers:TypeOffer[]) => offers.slice(),
+  HighToLow: (offers:TypeOffer[]) => offers.toSorted(sortHighToLow),
+  LowToHigh: (offers:TypeOffer[]) => offers.toSorted(sortLowToHigh),
+  TopRated: (offers:TypeOffer[]) => offers.toSorted(sortByRating),
+};
 
 function PagesMainContainer(): JSX.Element {
-  // const [selectedPoint, setSelectedPoint] = useState<TypeOfferMock>();
   const dispatch = useAppDispatch();
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const offersNew = useAppSelector((state) => state.offers);
-  const selectedPoint = useAppSelector((state) => state.offer);
-  // const navigate = useNavigate();
+  const myState = useAppSelector((state) => state);
+  const {activeCity, offers, offer, favorites} = myState;
 
-  // const handleListItemHover = (offerId: number) => {
-  // const currentPoint = offers.find((elem) =>
-  //   elem.id === offerId,
-  // );
-  // setSelectedPoint(currentPoint);
-  // };
+  const onChange = (type:TypeSorting) =>{
+    dispatch(setOffers(sortingPoint[type](offers)));
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -33,22 +31,22 @@ function PagesMainContainer(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <a className="header__logo-link header__logo-link--active" >
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a className="header__nav-link header__nav-link--profile" href="favorites">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favorites.length}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" href="login">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -71,7 +69,7 @@ function PagesMainContainer(): JSX.Element {
                   <a className={`locations__item-link tabs__item ${elem === activeCity ? 'tabs__item--active' : ''}`}
                     onClick={
                       ()=>{
-                        dispatch(setActivCity(elem));
+                        dispatch(setActiveCity(elem));
                         dispatch(fetchOffers(elem));
                       }
                     }
@@ -88,57 +86,16 @@ function PagesMainContainer(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersNew.length} places to stay in {activeCity}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}
-                    onClick={
-                      ()=>{
+              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+              <SortingTypePoint onChange={onChange}/>
 
-                      }
-                    }
-                  >Popular
-                  </li>
-                  <li className="places__option" tabIndex={0}
-                    onClick={
-                      ()=>{
-
-                      }
-                    }
-                  >Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex={0}
-                    onClick={
-                      ()=>{
-
-                      }
-                    }
-                  >Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex={0}
-                    onClick={
-                      ()=>{
-
-                      }
-                    }
-                  >Top rated first
-                  </li>
-                </ul>
-              </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offersNew} onListItemHover={(offerId: number)=> dispatch(fetchOffer(offerId))}/>
+                <OffersList offers={offers} onListItemHover={(offerId: number)=> dispatch(fetchOffer(offerId))}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <MainMap offers={offersNew} selectedPoint={selectedPoint}/>
+                <MainMap offers={offers} selectedPoint={offer}/>
               </section>
             </div>
           </div>

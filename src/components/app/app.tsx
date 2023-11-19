@@ -7,15 +7,9 @@ import PagesFavoritesContainer from '../../pages/pages-favorites-container/pages
 import PagesLoginContainer from '../../pages/pages-login-container/pages-login-container.tsx';
 import PagesOfferContainer from '../../pages/pages-offer-container/pages-offer-container.tsx';
 import PrivateRoute from '../private-route.tsx';
-import { TypeOfferMock, TypeReviewMock } from '../../types/types-mock.ts';
 
 
-type AppProps = {
-  offers: TypeOfferMock[];
-  reviews: TypeReviewMock[];
-}
-
-export default function App({offers,reviews}:AppProps):JSX.Element{
+export default function App():JSX.Element{
 
   return(
     <HelmetProvider>
@@ -31,7 +25,7 @@ export default function App({offers,reviews}:AppProps):JSX.Element{
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <PagesFavoritesContainer offers={offers}/>
+                <PagesFavoritesContainer/>
               </PrivateRoute>
             }
           />
@@ -41,7 +35,7 @@ export default function App({offers,reviews}:AppProps):JSX.Element{
           />
           <Route
             path={AppRoute.Offer}
-            element={<PagesOfferContainer offers={offers} reviews={reviews} />}
+            element={<PagesOfferContainer />}
           />
           <Route
             path='*'

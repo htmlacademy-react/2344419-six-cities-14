@@ -1,8 +1,8 @@
-import { TypeOfferMock } from '../types/types-mock';
+import { TypeOffer } from '../types/types-mock';
 import PagesCard from './card';
 
 type OffersListProps = {
-  offers: TypeOfferMock[];
+  offers: TypeOffer[];
   onListItemHover: (offer_id: number) => void;
 }
 

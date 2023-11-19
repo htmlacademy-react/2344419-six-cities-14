@@ -16,7 +16,7 @@ export type Host = {
   avatarUrl: string;
 };
 
-export type TypeOfferMock = {
+export type TypeOffer = {
   bedrooms: number;
   city: City;
   description: string;

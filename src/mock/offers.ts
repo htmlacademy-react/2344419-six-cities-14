@@ -1,6 +1,6 @@
-import { TypeOfferMock } from '../types/types-mock';
+import { TypeOffer } from '../types/types-mock';
 
-const offersMock: TypeOfferMock[] = [
+const offersMock: TypeOffer[] = [
   {
     city: {
       name: 'Paris',

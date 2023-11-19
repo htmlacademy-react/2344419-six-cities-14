@@ -1,13 +1,23 @@
 import { Helmet } from 'react-helmet-async';
-import OffersFavoritList from '../../components/offers-favorites-list';
-import { TypeOfferMock } from '../../types/types-mock';
+import { useAppSelector } from '../../hooks/hooks';
+import FavoritesCard from '../../components/favorites-cards';
+import { TypeOffer } from '../../types/types-mock';
 
-type FavoritesProps = {
-  offers: TypeOfferMock[];
+function getFavoriteByCity(favorites:TypeOffer[]){
+  return favorites.reduce<{[key:string]:TypeOffer[]}>((acc,curr) => {
+    const city = curr.city.name;
+    if(!(city in acc)){
+      acc[city] = [];
+    }
+    acc[city].push(curr);
+    return acc;
+  }, {});
 }
 
-function PagesFavoritesContainer({offers}:FavoritesProps):JSX.Element{
 
+function PagesFavoritesContainer():JSX.Element{
+  const favorites = useAppSelector((state) => state.favorites);
+  const favoriteByCity = getFavoriteByCity(favorites);
   return(
     <div className="page">
       <header className="header">
@@ -25,7 +35,7 @@ function PagesFavoritesContainer({offers}:FavoritesProps):JSX.Element{
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favorites.length}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -49,20 +59,29 @@ function PagesFavoritesContainer({offers}:FavoritesProps):JSX.Element{
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
+              {Object.entries(favoriteByCity).map(
+                ([city, groupedFavorites])=>(
+                  <li className="favorites__locations-items" key={city}>
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>{city}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="favorites__places">
+                      {groupedFavorites.map((offer)=>(
+                        <FavoritesCard
+                          key = {offer.id}
+                          offer = {offer}
+                        />
+                      ))}
 
-                  <OffersFavoritList offers={offers}/>
+                    </div>
+                  </li>
 
-                </div>
-              </li>
+                )
+              )}
 
               <li className="favorites__locations-items">
                 <div className="favorites__places">
