@@ -5,11 +5,11 @@ type CitesPlacesProps = {
 }
 
 function FavoritesCard({offer}:CitesPlacesProps):JSX.Element{
-  const {price, previewImage, rating, type} = offer;
+  const {price, previewImage, rating, type,id} = offer;
   return(
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a href={`offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </a>
       </div>
