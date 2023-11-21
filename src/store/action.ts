@@ -1,11 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
-import { CityName, NameSpace } from '../const';
+import { AuthorizationStatus, CityName, NameSpace } from '../const';
 import { TypeOffer } from '../types/types-mock';
 
 
 export const fetchOffer = createAction<TypeOffer['id']>(`${NameSpace.Offer}/fetch`);
 
-export const fetchOffers = createAction<string>(`${NameSpace.Offers}/fetch`);//
+export const fetchOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/fetch`);//
 
 export const setOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/set`);
 
@@ -19,3 +19,4 @@ export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivC
 
 export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetch`);
 
+export const fetchAuthorization = createAction<AuthorizationStatus>('user/fetchAuthorization');

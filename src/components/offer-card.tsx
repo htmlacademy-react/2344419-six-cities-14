@@ -1,12 +1,12 @@
 
-import { TypeOffer, TypeReviewMock } from '../types/types-mock';
+import { TypeOffer, TypeReview } from '../types/types-mock';
 import OfferReviews from './offer-reviews';
 import { useState } from 'react';
 import FormComment from './form-comment';
 
 type OfferCardProps = {
 offer:TypeOffer;
-reviews: TypeReviewMock[];
+reviews: TypeReview[];
 }
 
 

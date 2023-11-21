@@ -1,48 +1,57 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { offersMock } from '../mock/offers';
-import { reviewsMock } from '../mock/reviews';
-import { TypeOffer, TypeReviewMock } from '../types/types-mock';
-import { dropOffer, fetchFavorites, fetchNearPlaces, fetchOffer, fetchOffers, fetchReviews, setActiveCity, setOffers } from './action';
-import { CityName } from '../const';
+import { TypeOffer, TypeReview } from '../types/types-mock';
+import { dropOffer, fetchFavorites, setActiveCity, setOffers, fetchAuthorization } from './action';
+import { CityName, AuthorizationStatus, RequestStatus } from '../const';
+import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction } from '../services/api-actions';
 
 
 export const DEFAULT_CITY = CityName.Paris;
 
 type InstialState = {
-
   offers: TypeOffer[];
+  offersFetchingstatus:RequestStatus;
   nearPlaces: TypeOffer[];
-  reviews: TypeReviewMock[];
+  reviews: TypeReview[];
   offer: TypeOffer | undefined;
   favorites: TypeOffer[];
   activeCity: CityName;
+  authorizationStatus:string;
 };
 
 const instialState:InstialState = {
-  offers:offersMock.filter((offer)=> offer.city.name === DEFAULT_CITY as string),
+  offers:[],//offers.filter((offer)=> offer.city.name === DEFAULT_CITY as string),
+  offersFetchingstatus:RequestStatus.Idle,
   nearPlaces:[],
   reviews:[],
   offer:undefined,
-  favorites: offersMock.filter((offer)=>offer.isFavorite),
+  favorites:[],// offers.filter((offer)=>offer.isFavorite),
   activeCity:DEFAULT_CITY,
+  authorizationStatus:AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(instialState,(builder) =>{
   builder
-    .addCase(fetchOffers,(state, action) =>{
-      state.offers = offersMock.filter((offer)=> offer.city.name === action.payload) ?? [];
+    .addCase(fetchOffersAction.pending,(state) =>{
+      state.offersFetchingstatus = RequestStatus.Pending;
     })
-    .addCase(fetchOffer,(state, action) =>{
-      state.offer = offersMock.find((offer)=> offer.id === action.payload) ?? undefined;
+    .addCase(fetchOffersAction.fulfilled,(state, action) =>{
+      state.offersFetchingstatus = RequestStatus.Success;
+      state.offers = action.payload;
+    })
+    .addCase(fetchOffersAction.rejected,(state) =>{
+      state.offersFetchingstatus = RequestStatus.Error;
+    })
+    .addCase(fetchOfferAction.fulfilled,(state, action) =>{
+      state.offer = action.payload;
     })
     .addCase(setOffers,(state, action) =>{
       state.offers = action.payload;
     })
-    .addCase(fetchNearPlaces,(state,action)=>{
-      state.nearPlaces = offersMock.filter((offer)=>offer.id === action.payload);
+    .addCase(fetchNearbyPlaces.fulfilled,(state,action)=>{
+      state.nearPlaces = action.payload;
     })
-    .addCase(fetchReviews, (state, action)=>{
-      state.reviews = reviewsMock.filter((review)=>review.id === action.payload);
+    .addCase(fetchCommentsAction.fulfilled, (state, action)=>{
+      state.reviews = action.payload;
     })
     .addCase(dropOffer, (state)=>{
       state.offer = undefined;
@@ -53,7 +62,11 @@ const reducer = createReducer(instialState,(builder) =>{
     })
     .addCase(fetchFavorites, (state)=>{
       state.favorites = state.offers.filter((offer)=>offer.isFavorite);
+    })
+    .addCase(fetchAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
+
 });
 
 export { reducer };

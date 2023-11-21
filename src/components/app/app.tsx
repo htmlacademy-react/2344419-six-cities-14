@@ -38,6 +38,10 @@ export default function App():JSX.Element{
             element={<PagesOfferContainer />}
           />
           <Route
+            path={AppRoute.NotFound}
+            element={<PagesNotFoundContainer />}
+          />
+          <Route
             path='*'
             element={<PagesNotFoundContainer />}
           />

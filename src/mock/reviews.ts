@@ -1,6 +1,6 @@
-import { TypeReviewMock } from '../types/types-mock';
+import { TypeReview } from '../types/types-mock';
 
-const reviewsMock: TypeReviewMock[] = [
+const reviewsMock: TypeReview[] = [
   {
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: 'Tue Oct 24 2023 16:37:40 GMT+0300 (Москва, стандартное время)',

@@ -42,7 +42,7 @@ export type User = {
   name: string;
 }
 
-export type TypeReviewMock = {
+export type TypeReview = {
   comment: string;
   date: string;
   id: number;

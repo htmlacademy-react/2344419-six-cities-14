@@ -2,12 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
 import { CityName } from '../../const.ts';
-import { fetchOffer, fetchOffers, setActiveCity, setOffers } from '../../store/action.ts';
+import { fetchOffer, setActiveCity, setOffers } from '../../store/action.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
 import { TypeOffer } from '../../types/types-mock.ts';
 import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
+import { fetchOffersAction } from '../../services/api-actions.ts';
+import { useLayoutEffect } from 'react';
 
 const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
   Popular: (offers:TypeOffer[]) => offers.slice(),
@@ -20,10 +22,17 @@ function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
   const myState = useAppSelector((state) => state);
 
-  const {activeCity, offers, offer, favorites} = myState;
+  const {activeCity, offers, offer, favorites, } = myState;
+
+  useLayoutEffect(()=>{
+    dispatch(fetchOffersAction());
+  },[dispatch]);
+
+  const newOffers = offers?.filter((item)=> item.city.name === activeCity as string);
+
 
   const onChange = (type:TypeSorting) =>{
-    dispatch(setOffers(sortingPoint[type](offers)));
+    dispatch(setOffers(sortingPoint[type](newOffers)));
   };
 
   return (
@@ -71,7 +80,6 @@ function PagesMainContainer(): JSX.Element {
                     onClick={
                       ()=>{
                         dispatch(setActiveCity(elem));
-                        dispatch(fetchOffers(elem));
                       }
                     }
                   >
@@ -87,16 +95,16 @@ function PagesMainContainer(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+              <b className="places__found">{newOffers?.length} places to stay in {activeCity}</b>
               <SortingTypePoint onChange={onChange}/>
 
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} onListItemHover={(offerId: number)=> dispatch(fetchOffer(offerId))}/>
+                <OffersList offers={newOffers} onListItemHover={(offerId: number)=> dispatch(fetchOffer(offerId))}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <MainMap offers={offers} selectedPoint={offer}/>
+                <MainMap offers={newOffers} selectedPoint={offer}/>
               </section>
             </div>
           </div>

@@ -1,8 +1,8 @@
 
-import { TypeReviewMock } from '../types/types-mock';
+import { TypeReview } from '../types/types-mock';
 
 type OfferCardProps = {
-reviews: TypeReviewMock[];
+reviews: TypeReview[];
 }
 
 function OfferReviews({reviews}:OfferCardProps):JSX.Element{
