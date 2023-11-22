@@ -3,12 +3,20 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  NotFound = '/404'
 }
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+}
+
+export enum RequestStatus {
+  Idle = 'IDLE',
+  Pending = 'PENDING',
+  Success = 'SUCCESS',
+  Error = 'ERROR',
 }
 
 export enum CityName {
@@ -39,9 +47,18 @@ export enum Sorting {
   TopRated = 'Top rated first',//От высокого рейтинга к низкому.
 }
 
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments/',
+  Nearby = '/nearby'
+}
+
 export const MAX_CUNT_NEAR_PLACES = 3;
 
-export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
-export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
+export const URL_MARKER_DEFAULT = '../img/pin.svg';
+
+export const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
 

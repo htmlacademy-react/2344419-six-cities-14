@@ -4,30 +4,28 @@ import 'leaflet/dist/leaflet.css';
 import { TypeOffer } from '../types/types-data';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import useMap from './use-map';
-import { DEFAULT_CITY } from '../store/reducer';
 
 
 type ListProps = {
   offers: TypeOffer[];
   selectedPoint?:TypeOffer;
-  fromOffer?: boolean;
 }
 
-const defaultCustomIcon = leaflet.icon({
+const defaultCustomIcon = leaflet.icon({//дефолтный маркер
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-const currentCustomIcon = leaflet.icon({
+const currentCustomIcon = leaflet.icon({//выбранный маркер
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-function MainMap({ offers, selectedPoint, fromOffer}:ListProps) {
+function MyMap({ offers, selectedPoint}:ListProps) {
   const mapRef = useRef(null);
-  const map = useMap({mapRef, city: offers?.[0]?.city || DEFAULT_CITY});
+  const map = useMap({mapRef, city: offers[0].city});
 
   useEffect(() => {
     if (map) {
@@ -47,21 +45,16 @@ function MainMap({ offers, selectedPoint, fromOffer}:ListProps) {
           .addTo(markerLayer);
       });
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, offers, selectedPoint, selectedPoint?.city?.name]);
 
   return (
     <div
-      style={fromOffer ? {
-        height:'100%',
-        minHeight:'500px',
-        width:'100%',
-        maxWidth:'1144px',
-        margin:'0 auto',} : {height: 772, width:'100%'}}
+      style={{height: 772, width:'100%'}}
       ref={mapRef}
     >
     </div>
   );
 }
 
-export default MainMap;
+export default MyMap;
 

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks/hooks';
 import FavoritesCard from '../../components/favorites-cards';
-import { TypeOffer } from '../../types/types-mock';
+import { TypeOffer } from '../../types/types-data';
 
 function getFavoriteByCity(favorites:TypeOffer[]){
   return favorites.reduce<{[key:string]:TypeOffer[]}>((acc,curr) => {

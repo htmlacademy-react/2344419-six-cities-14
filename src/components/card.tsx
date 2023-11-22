@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { TypeOffer } from '../types/types-mock';
+import { TypeOffer } from '../types/types-data';
 
 type CitesPlacesProps = {
   offer: TypeOffer;
-  onListItemHover?: (offer_id: number) => void;
+  onListItemHover?: (offer_id: string) => void;
 }
 
 function PagesCard ({offer, onListItemHover} :CitesPlacesProps):JSX.Element{

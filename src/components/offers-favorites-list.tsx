@@ -1,4 +1,4 @@
-import { TypeOffer } from '../types/types-mock';
+import { TypeOffer } from '../types/types-data';
 import FavoritesCard from './favorites-cards';
 
 

@@ -3,26 +3,27 @@ import OfferCard from '../../components/offer-card';
 import { useParams } from 'react-router-dom';
 import OffersReviewsList from '../../components/offer-reviews-list.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
-import { fetchNearPlaces, fetchOffer, dropOffer, fetchReviews } from '../../store/action.ts';
+import { dropOffer } from '../../store/action.ts';
 import { MAX_CUNT_NEAR_PLACES } from '../../const.ts';
 import { useEffect } from 'react';
 import MainMap from '../../components/main-map.tsx';
+import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../services/api-actions.ts';
 
 function PagesOfferContainer():JSX.Element{
   const dispatch = useAppDispatch();
 
   const myState = useAppSelector((state) => state);
 
-  const {offer, offers, reviews,activeCity} = myState;
+  const {offer, offers, reviews, nearPlaces} = myState;
 
   // const nearPlacesToRender = nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES);
   const { id } = useParams();
 
   useEffect(() => {
     if(id){
-      dispatch(fetchOffer(Number(id)));
-      dispatch(fetchReviews(Number(id)));
-      dispatch(fetchNearPlaces(Number(id)));
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchCommentsAction(id));
+      dispatch(fetchNearbyPlaces(id));
     }
     return()=>{
       dispatch(dropOffer());
@@ -49,7 +50,7 @@ function PagesOfferContainer():JSX.Element{
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            <OffersReviewsList offers={offers.filter((e)=> e.id !== Number(id) && e.city.name === activeCity as string).slice(0,MAX_CUNT_NEAR_PLACES)} />
+            <OffersReviewsList offers={nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES)} />
           </div>
         </section>
       </div>
