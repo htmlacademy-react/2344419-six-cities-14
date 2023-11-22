@@ -3,7 +3,7 @@ export type AuthData = {
   password:string;
 };
 export type UserData = {
-  id: number;
+  id: string;
   email: string;
   token: string;
 }

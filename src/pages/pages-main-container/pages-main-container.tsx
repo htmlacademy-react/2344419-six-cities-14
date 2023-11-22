@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
-import { CityName, RequestStatus } from '../../const.ts';
+import { AuthorizationStatus, CityName, RequestStatus } from '../../const.ts';
 import { fetchOffer, setActiveCity, setOffers } from '../../store/action.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
@@ -12,6 +12,7 @@ import { fetchOffersAction } from '../../services/api-actions.ts';
 import { useLayoutEffect } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
+import { Link } from 'react-router-dom';
 
 const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
   Popular: (offers:TypeOffer[]) => offers.slice(),
@@ -23,10 +24,9 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
   const myState = useAppSelector((state) => state);
-  const fetchingStatus = useAppSelector((state)=>state.offersFetchingstatus);
 
-
-  const {activeCity, offers, offer, favorites, } = myState;
+  const {activeCity, offers, offer, favorites, authorizationStatus, offersFetchingstatus} = myState;
+  console.log('🚀 ~ file: pages-main-container.tsx:28 ~ PagesMainContainer ~ authorizationStatus:', authorizationStatus);
 
   useLayoutEffect(()=>{
     dispatch(fetchOffersAction());
@@ -50,21 +50,34 @@ function PagesMainContainer(): JSX.Element {
               </a>
             </div>
             <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="favorites">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">{favorites.length}</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="login">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
+
+
+              {authorizationStatus === AuthorizationStatus.Auth ? (
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to="favorites">
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                      </div>
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__favorite-count">{favorites.length}</span>
+                    </Link>
+                  </li>
+                  <li className="header__nav-item">
+                    <a className="header__nav-link" href="login">
+                      <span className="header__signout">Sign out</span>
+                    </a>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="header__nav-list">
+                  <li className="header__nav-item">
+                    <a className="header__nav-link" href="login">
+                      <span className="header__signout">Sign in</span>
+                    </a>
+                  </li>
+                </ul>
+              )}
+
             </nav>
           </div>
         </div>
@@ -98,9 +111,9 @@ function PagesMainContainer(): JSX.Element {
           </section>
         </div>
 
-        {fetchingStatus === RequestStatus.Error && <PagesNotFoundContainer />}
-        {fetchingStatus === RequestStatus.Pending && <LoadingSpiner/>}
-        {fetchingStatus === RequestStatus.Success && (
+        {offersFetchingstatus === RequestStatus.Error && <PagesNotFoundContainer />}
+        {offersFetchingstatus === RequestStatus.Pending && <LoadingSpiner/>}
+        {offersFetchingstatus === RequestStatus.Success && (
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">

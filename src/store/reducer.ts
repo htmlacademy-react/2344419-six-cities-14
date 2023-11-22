@@ -18,7 +18,7 @@ type InstialState = {
   offerFetchingstatus:RequestStatus;
   favorites: TypeOffer[];
   activeCity: CityName;
-  authorizationStatus:string;
+  authorizationStatus:AuthorizationStatus;
  error:string|null;
 
 };
@@ -89,6 +89,12 @@ const reducer = createReducer(instialState,(builder) =>{
       state.comentFetchingstatus = RequestStatus.Error;
     })
 
+
+    .addCase(fetchAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+
+
     .addCase(setError,(state,action) =>{
       state.error = action.payload;
     }
@@ -105,9 +111,6 @@ const reducer = createReducer(instialState,(builder) =>{
     })
     .addCase(fetchFavorites, (state)=>{
       state.favorites = state.offers.filter((offer)=>offer.isFavorite);
-    })
-    .addCase(fetchAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     });
 
 });
