@@ -22,7 +22,7 @@ export type TypeOffer = {
   description: string;
   goods: string[];
   host:Host;
-  id:number;
+  id:string;
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
@@ -37,7 +37,7 @@ export type TypeOffer = {
 
 export type User = {
   avatarUrl: string;
-  id: number;
+  id: string;
   isPro: boolean;
   name: string;
 }
@@ -45,7 +45,7 @@ export type User = {
 export type TypeReview = {
   comment: string;
   date: string;
-  id: number;
+  id: string;
   rating: number;
   user: User;
 };

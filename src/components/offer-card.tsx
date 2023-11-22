@@ -1,5 +1,5 @@
 
-import { TypeOffer, TypeReview } from '../types/types-mock';
+import { TypeOffer, TypeReview } from '../types/types-data';
 import OfferReviews from './offer-reviews';
 import { useState } from 'react';
 import FormComment from './form-comment';

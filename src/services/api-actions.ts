@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
-import { TypeOffer, TypeReview } from '../types/types-mock';
+import { TypeOffer, TypeReview } from '../types/types-data';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { fetchAuthorization } from '../store/action';
 import { dropToken, saveToken } from './token';

@@ -1,7 +1,7 @@
 import {useRef, useEffect} from 'react';
 import leaflet, {layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { TypeOffer } from '../types/types-mock';
+import { TypeOffer } from '../types/types-data';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import useMap from './use-map';
 import { DEFAULT_CITY } from '../store/reducer';

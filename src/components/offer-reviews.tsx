@@ -1,5 +1,5 @@
 
-import { TypeReview } from '../types/types-mock';
+import { TypeReview } from '../types/types-data';
 
 type OfferCardProps = {
 reviews: TypeReview[];

@@ -1,9 +1,9 @@
-import { TypeOffer } from '../types/types-mock';
+import { TypeOffer } from '../types/types-data';
 import PagesCard from './card';
 
 type OffersListProps = {
   offers: TypeOffer[];
-  onListItemHover: (offer_id: number) => void;
+  onListItemHover: (offer_id:string) => void;
 }
 
 

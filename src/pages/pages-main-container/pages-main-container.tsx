@@ -1,15 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
-import { CityName } from '../../const.ts';
+import { CityName, RequestStatus } from '../../const.ts';
 import { fetchOffer, setActiveCity, setOffers } from '../../store/action.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
-import { TypeOffer } from '../../types/types-mock.ts';
+import { TypeOffer } from '../../types/types-data.ts';
 import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
 import { fetchOffersAction } from '../../services/api-actions.ts';
 import { useLayoutEffect } from 'react';
+import { LoadingSpiner } from '../../components/loading-spiner.tsx';
+import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 
 const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
   Popular: (offers:TypeOffer[]) => offers.slice(),
@@ -21,6 +23,8 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
   const myState = useAppSelector((state) => state);
+  const fetchingStatus = useAppSelector((state)=>state.offersFetchingstatus);
+
 
   const {activeCity, offers, offer, favorites, } = myState;
 
@@ -73,6 +77,8 @@ function PagesMainContainer(): JSX.Element {
             <Helmet>
               <title>Главная страница</title>
             </Helmet>
+
+
             <ul className="locations__list tabs__list">
               {Object.values(CityName).map((elem) => (
                 <li key={elem} className="locations__item">
@@ -91,24 +97,29 @@ function PagesMainContainer(): JSX.Element {
             </ul>
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{newOffers?.length} places to stay in {activeCity}</b>
-              <SortingTypePoint onChange={onChange}/>
 
-              <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={newOffers} onListItemHover={(offerId: number)=> dispatch(fetchOffer(offerId))}/>
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <MainMap offers={newOffers} selectedPoint={offer}/>
+        {fetchingStatus === RequestStatus.Error && <PagesNotFoundContainer />}
+        {fetchingStatus === RequestStatus.Pending && <LoadingSpiner/>}
+        {fetchingStatus === RequestStatus.Success && (
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{newOffers?.length} places to stay in {activeCity}</b>
+                <SortingTypePoint onChange={onChange}/>
+
+                <div className="cities__places-list places__list tabs__content">
+                  <OffersList offers={newOffers} onListItemHover={(offerId)=> dispatch(fetchOffer(offerId))}/>
+                </div>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <MainMap offers={newOffers} selectedPoint={offer}/>
+                </section>
+              </div>
             </div>
-          </div>
-        </div>
+          </div>)}
+
       </main>
     </div>
   );

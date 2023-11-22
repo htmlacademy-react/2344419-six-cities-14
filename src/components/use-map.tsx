@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
-import { City } from '../types/types-mock';
+import { City } from '../types/types-data';
 
 
 type ListProps = {
