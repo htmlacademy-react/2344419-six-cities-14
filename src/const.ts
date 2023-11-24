@@ -52,7 +52,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments/',
-  Nearby = '/nearby'
+  Nearby = '/nearby',
+  Favorites = '/favoritas'
 }
 
 export const MAX_CUNT_NEAR_PLACES = 3;

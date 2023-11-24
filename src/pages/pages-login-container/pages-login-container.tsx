@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import { fetchAuthorization, setActiveCity } from '../../store/action';
 import { AuthorizationStatus, CityName } from '../../const';
 import { Link } from 'react-router-dom';
-import { fetchOffersAction } from '../../services/api-actions';
+
 
 function PagesLoginContainer():JSX.Element {
   const dispatch = useAppDispatch();

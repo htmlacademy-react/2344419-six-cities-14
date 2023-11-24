@@ -26,7 +26,6 @@ function PagesMainContainer(): JSX.Element {
   const myState = useAppSelector((state) => state);
 
   const {activeCity, offers, offer, favorites, authorizationStatus, offersFetchingstatus} = myState;
-  console.log('🚀 ~ file: pages-main-container.tsx:28 ~ PagesMainContainer ~ authorizationStatus:', authorizationStatus);
 
   useLayoutEffect(()=>{
     dispatch(fetchOffersAction());
