@@ -4,19 +4,21 @@ import { useParams } from 'react-router-dom';
 import OffersReviewsList from '../../components/offer-reviews-list.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { dropOffer } from '../../store/action.ts';
-import { MAX_CUNT_NEAR_PLACES } from '../../const.ts';
+import { MAX_CUNT_NEAR_PLACES, RequestStatus } from '../../const.ts';
 import { useEffect } from 'react';
 import MainMap from '../../components/main-map.tsx';
 import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../services/api-actions.ts';
+import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
+import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 
 function PagesOfferContainer():JSX.Element{
   const dispatch = useAppDispatch();
+  const fetchingStatus = useAppSelector((state)=>state.offerFetchingstatus);
 
   const myState = useAppSelector((state) => state);
 
   const {offer, offers, reviews, nearPlaces} = myState;
 
-  // const nearPlacesToRender = nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES);
   const { id } = useParams();
 
   useEffect(() => {
@@ -32,28 +34,34 @@ function PagesOfferContainer():JSX.Element{
 
   return (
     <>
-      <section className="offer">
-        <Helmet>
-          <title>
+      {fetchingStatus === RequestStatus.Error && <PagesNotFoundContainer/>}
+      {fetchingStatus === RequestStatus.Pending && <LoadingSpiner/>}
+      {fetchingStatus === RequestStatus.Success && (
+        <div>
+          <section className="offer">
+            <Helmet>
+              <title>
            Отзывы и рейтинг
-          </title>
-        </Helmet>
-
-        { offer ?
-          <OfferCard offer={offer} reviews={reviews}/>
-          : <div></div>}
-        <section className="offer__map map">
-          <MainMap offers={offers} selectedPoint={offer} fromOffer/>
-        </section>
-      </section>
-      <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <OffersReviewsList offers={nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES)} />
+              </title>
+            </Helmet>
+            { offer ?
+              <OfferCard offer={offer} reviews={reviews}/>
+              : <div></div>}
+            <section className="offer__map map">
+              <MainMap offers={offers} selectedPoint={offer} fromOffer/>
+            </section>
+          </section>
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <div className="near-places__list places__list">
+                <OffersReviewsList offers={nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES)} />
+              </div>
+            </section>
           </div>
-        </section>
-      </div>
+        </div>
+
+      )}
     </>
   );
 }

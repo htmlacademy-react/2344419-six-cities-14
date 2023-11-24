@@ -1,12 +1,11 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const.ts';
+import { AppRoute} from '../../const.ts';
 import { HelmetProvider } from 'react-helmet-async';
 import PagesMainContainer from '../../pages/pages-main-container/pages-main-container.tsx';
 import PagesNotFoundContainer from '../../pages/pages-not-found-container/pages-not-found-container.tsx';
 import PagesFavoritesContainer from '../../pages/pages-favorites-container/pages-favorites-container.tsx';
 import PagesLoginContainer from '../../pages/pages-login-container/pages-login-container.tsx';
 import PagesOfferContainer from '../../pages/pages-offer-container/pages-offer-container.tsx';
-import PrivateRoute from '../private-route.tsx';
 
 
 export default function App():JSX.Element{
@@ -21,13 +20,7 @@ export default function App():JSX.Element{
           />
           <Route
             path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
-              >
-                <PagesFavoritesContainer/>
-              </PrivateRoute>
-            }
+            element={<PagesFavoritesContainer/>}
           />
           <Route
             path={AppRoute.Login}

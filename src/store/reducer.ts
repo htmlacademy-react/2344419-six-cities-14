@@ -1,8 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { TypeOffer, TypeReview } from '../types/types-data';
-import { dropOffer, fetchFavorites, setActiveCity, setOffers, fetchAuthorization, setError } from './action';
+import { fetchAuthorization, fetchFavorites, setActiveCity, setError, setOffers, } from './action';
 import { CityName, AuthorizationStatus, RequestStatus } from '../const';
-import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction } from '../services/api-actions';
+import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction, loginAction, postComment, } from '../services/api-actions';
 
 
 export const DEFAULT_CITY = CityName.Paris;
@@ -13,35 +13,38 @@ type InstialState = {
   nearPlaces: TypeOffer[];
   nearbyFetchingstatus: RequestStatus;
   reviews: TypeReview[];
-  comentFetchingstatus:RequestStatus;
+  commentFetchingstatus:RequestStatus;
   offer: TypeOffer | undefined;
   offerFetchingstatus:RequestStatus;
   favorites: TypeOffer[];
+  favoritesFetchingstatus:RequestStatus;
   activeCity: CityName;
-  authorizationStatus:string;
- error:string|null;
-
+  authorizationStatus:AuthorizationStatus;
+  error:string|null;
+  user:null;
+  loginSendingStatus:RequestStatus;
 };
 
 const instialState:InstialState = {
-  offers:[],//offers.filter((offer)=> offer.city.name === DEFAULT_CITY as string),
+  offers:[],
   offersFetchingstatus:RequestStatus.Idle,
   nearPlaces:[],
   nearbyFetchingstatus: RequestStatus.Idle,
   reviews:[],
-  comentFetchingstatus:RequestStatus.Idle,
+  commentFetchingstatus:RequestStatus.Idle,
   offer:undefined,
   offerFetchingstatus:RequestStatus.Idle,
-  favorites:[],// offers.filter((offer)=>offer.isFavorite),
+  favorites:[],
+  favoritesFetchingstatus:RequestStatus.Idle,
   activeCity:DEFAULT_CITY,
   authorizationStatus:AuthorizationStatus.Unknown,
   error:null,
+  user:null,
+  loginSendingStatus:RequestStatus.Idle,
 };
 
 const reducer = createReducer(instialState,(builder) =>{
   builder
-
-
     .addCase(fetchOffersAction.pending,(state) =>{
       state.offersFetchingstatus = RequestStatus.Pending;
     })
@@ -65,40 +68,24 @@ const reducer = createReducer(instialState,(builder) =>{
       state.offerFetchingstatus = RequestStatus.Error;
     })
 
-
-    .addCase(fetchNearbyPlaces.pending,(state)=>{
-      state.nearbyFetchingstatus = RequestStatus.Pending;
-    })
     .addCase(fetchNearbyPlaces.fulfilled,(state,action)=>{
-      state.nearbyFetchingstatus = RequestStatus.Success;
       state.nearPlaces = action.payload;
     })
-    .addCase(fetchNearbyPlaces.rejected,(state)=>{
-      state.nearbyFetchingstatus = RequestStatus.Error;
-    })
-
 
     .addCase(fetchCommentsAction.pending, (state)=>{
-      state.comentFetchingstatus = RequestStatus.Pending;
+      state.commentFetchingstatus = RequestStatus.Pending;
     })
     .addCase(fetchCommentsAction.fulfilled, (state, action)=>{
-      state.comentFetchingstatus = RequestStatus.Success;
+      state.commentFetchingstatus = RequestStatus.Success;
       state.reviews = action.payload;
     })
     .addCase(fetchCommentsAction.rejected, (state)=>{
-      state.comentFetchingstatus = RequestStatus.Error;
+      state.commentFetchingstatus = RequestStatus.Error;
     })
 
-    .addCase(setError,(state,action) =>{
-      state.error = action.payload;
-    }
-    )
-    .addCase(setOffers,(state, action) =>{
-      state.offers = action.payload;
-    })
-    .addCase(dropOffer, (state)=>{
-      state.offer = undefined;
-      state.nearPlaces = [];
+
+    .addCase(fetchAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     })
     .addCase(setActiveCity,(state, action)=>{
       state.activeCity = action.payload;
@@ -106,9 +93,40 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(fetchFavorites, (state)=>{
       state.favorites = state.offers.filter((offer)=>offer.isFavorite);
     })
-    .addCase(fetchAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
+
+
+    .addCase(setError,(state,action) =>{
+      state.error = action.payload;
+    }
+    )
+    .addCase(loginAction.fulfilled,(state,action) =>{
+      if(action.payload.token){
+        state.authorizationStatus = AuthorizationStatus.Auth;//?????????????????
+      }
+    })
+    .addCase(loginAction.rejected,(state, action) =>{
+      if(action.error){
+        state.authorizationStatus = AuthorizationStatus.NoAuth;//???????????
+      }
+    })
+
+    .addCase(setOffers,(state, action) =>{
+      state.offers = action.payload;
+    })
+
+    .addCase(postComment.pending, (state)=>{
+      state.commentFetchingstatus = RequestStatus.Pending;
+    })
+    .addCase(postComment.fulfilled, (state, action)=>{
+      state.commentFetchingstatus = RequestStatus.Success;
+      state.reviews.push(action.payload);
+    })
+    .addCase(postComment.rejected, (state)=>{
+      state.commentFetchingstatus = RequestStatus.Error;
     });
+  //.addCase(dropComment.pending, (state)=>{
+  //  state.comentFetchingstatus = RequestStatus.Idle;
+  //});
 
 });
 

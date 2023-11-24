@@ -1,9 +1,9 @@
 export type AuthData = {
-  login:string;
+  email:string;
   password:string;
 };
 export type UserData = {
-  id: number;
+  id: string;
   email: string;
   token: string;
 }
