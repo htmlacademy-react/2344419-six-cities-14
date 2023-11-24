@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import { TypeOffer, TypeReview } from '../types/types-data';
 import { fetchAuthorization, fetchFavorites, setActiveCity, setError, setOffers, } from './action';
 import { CityName, AuthorizationStatus, RequestStatus } from '../const';
-import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction, postComment, } from '../services/api-actions';
+import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction, loginAction, postComment, } from '../services/api-actions';
 
 
 export const DEFAULT_CITY = CityName.Paris;
@@ -99,6 +99,17 @@ const reducer = createReducer(instialState,(builder) =>{
       state.error = action.payload;
     }
     )
+    .addCase(loginAction.fulfilled,(state,action) =>{
+      if(action.payload.token){
+        state.authorizationStatus = AuthorizationStatus.Auth;//?????????????????
+      }
+    })
+    .addCase(loginAction.rejected,(state, action) =>{
+      if(action.error){
+        state.authorizationStatus = AuthorizationStatus.NoAuth;//???????????
+      }
+    })
+
     .addCase(setOffers,(state, action) =>{
       state.offers = action.payload;
     })
