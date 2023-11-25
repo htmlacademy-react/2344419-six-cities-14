@@ -9,7 +9,7 @@ import { TypeSorting } from '../../types/sorting.ts';
 import { TypeOffer } from '../../types/types-data.ts';
 import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
 import { fetchOffersAction } from '../../services/api-actions.ts';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useMemo } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 import { Link } from 'react-router-dom';
@@ -25,14 +25,13 @@ function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
   const myState = useAppSelector((state) => state);
 
-  const {activeCity, offers, offer, favorites, authorizationStatus, offersFetchingstatus} = myState;
+  const {activeCity, offers, offerId, favorites, authorizationStatus, offersFetchingstatus, user} = myState;
 
   useLayoutEffect(()=>{
     dispatch(fetchOffersAction());
   },[dispatch]);
 
-  const newOffers = offers?.filter((item)=> item.city.name === activeCity as string);
-
+  const newOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
 
   const onChange = (type:TypeSorting) =>{
     dispatch(setOffers(sortingPoint[type](newOffers)));
@@ -57,7 +56,7 @@ function PagesMainContainer(): JSX.Element {
                     <Link className="header__nav-link header__nav-link--profile" to="favorites">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__user-name user__name">{user}</span>
                       <span className="header__favorite-count">{favorites.length}</span>
                     </Link>
                   </li>
@@ -121,17 +120,16 @@ function PagesMainContainer(): JSX.Element {
                 <SortingTypePoint onChange={onChange}/>
 
                 <div className="cities__places-list places__list tabs__content">
-                  <OffersList offers={newOffers} onListItemHover={(offerId)=> dispatch(fetchOffer(offerId))}/>
+                  <OffersList offers={newOffers} onListItemHover={(id)=> dispatch(fetchOffer(id))}/>
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MainMap offers={newOffers} selectedPoint={offer}/>
+                  <MainMap offers={newOffers} selectedPoint={offerId} />
                 </section>
               </div>
             </div>
           </div>)}
-
       </main>
     </div>
   );

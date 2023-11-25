@@ -44,8 +44,8 @@ export type User = {
 
 export type TypeReview = {
   comment: string;
-  date: string;
-  id: string;
+  date?: string;
+  id?: string;
   rating: number;
-  user: User;
+  user?: User;
 };

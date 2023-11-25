@@ -3,6 +3,8 @@ import { TypeOffer, TypeReview } from '../types/types-data';
 import OfferReviews from './offer-reviews';
 import { useState } from 'react';
 import FormComment from './form-comment';
+import { useAppSelector } from '../hooks/hooks';
+import { AuthorizationStatus } from '../const';
 
 type OfferCardProps = {
 offer:TypeOffer;
@@ -12,6 +14,9 @@ reviews: TypeReview[];
 
 function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   const [reviewComment,setReviewComment] = useState<string>('');
+  const myState = useAppSelector((state) => state);
+
+  const {authorizationStatus} = myState;
 
   const [ratingStars, setRatingStars] = useState(()=>[false, false, false, false, false]);
   const fieldChangeHandle = (evt: string) => {
@@ -108,13 +113,17 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
             </div>
           </div>
           <OfferReviews reviews={reviews} />
-          <FormComment
-            reviewComment={reviewComment}
-            fieldChangeHandle={fieldChangeHandle}
-            ratingStars={ratingStars}
-            ratingChangeHandle={ratingChangeHandle}
-            handleSubmit={handleSubmit}
-          />
+
+          { authorizationStatus === AuthorizationStatus.Auth ? (
+            <FormComment
+              reviewComment={reviewComment}
+              fieldChangeHandle={fieldChangeHandle}
+              ratingStars={ratingStars}
+              ratingChangeHandle={ratingChangeHandle}
+              handleSubmit={handleSubmit}
+            />
+          ) : ('') }
+
         </div>
       </div>
     </>
