@@ -1,5 +1,3 @@
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { postComment } from '../services/api-actions';
 
 type FormComentProps ={
   reviewComment: string;
@@ -11,10 +9,7 @@ type FormComentProps ={
 
 function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChangeHandle, handleSubmit}: FormComentProps):JSX.Element{
 
-  const dispatch = useAppDispatch();
-  const myState = useAppSelector((state) => state);
 
-  const {offer} = myState;
   return (
     <form
       onSubmit={(evt) =>{
@@ -56,11 +51,7 @@ function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChang
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          onClick={
-            ()=>{
-              dispatch(postComment({offerId: offer?.id || '1', reviewData:  {comment: reviewComment, rating: 5 - ratingStars.indexOf(true)} }));
-            }
-          }
+
           className="reviews__submit form__submit button" type="submit"
         >Submit
         </button>

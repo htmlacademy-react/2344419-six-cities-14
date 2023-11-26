@@ -3,8 +3,10 @@ import { TypeOffer, TypeReview } from '../types/types-data';
 import OfferReviews from './offer-reviews';
 import { useState } from 'react';
 import FormComment from './form-comment';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { AuthorizationStatus } from '../const';
+import { postComment } from '../services/api-actions';
+
 
 type OfferCardProps = {
 offer:TypeOffer;
@@ -15,7 +17,7 @@ reviews: TypeReview[];
 function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   const [reviewComment,setReviewComment] = useState<string>('');
   const myState = useAppSelector((state) => state);
-
+  const dispatch = useAppDispatch();
   const {authorizationStatus} = myState;
 
   const [ratingStars, setRatingStars] = useState(()=>[false, false, false, false, false]);
@@ -26,7 +28,8 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
     setRatingStars(evt);
   };
   const handleSubmit = () => {
-    //console.log('Отправлена форма.');
+    dispatch(postComment({offerId: offer?.id || '1', reviewData:  {comment: reviewComment, rating: 5 - ratingStars.indexOf(true)} }));
+
   };
 
 
