@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks/hooks';
-import { fetchAuthorization, setActiveCity } from '../../store/action';
-import { AuthorizationStatus, CityName } from '../../const';
+import { setActiveCity } from '../../store/action';
+import { CityName } from '../../const';
 import { Link } from 'react-router-dom';
 import { loginAction } from '../../services/api-actions';
 import { useState } from 'react';
@@ -57,7 +57,6 @@ function PagesLoginContainer():JSX.Element {
               </div>
               <Link to="http://localhost:5173/"onClick={
                 ()=> {
-                  dispatch(fetchAuthorization(AuthorizationStatus.Auth));
                   dispatch(loginAction({email,password}));
                 }
               }

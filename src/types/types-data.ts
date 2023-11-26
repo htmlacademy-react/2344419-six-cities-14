@@ -49,3 +49,8 @@ export type TypeReview = {
   rating: number;
   user: User;
 };
+
+export type TypeResponseReview = {
+  comment: string;
+  rating: number;
+};

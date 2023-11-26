@@ -9,7 +9,7 @@ import { DEFAULT_CITY } from '../store/reducer';
 
 type ListProps = {
   offers: TypeOffer[];
-  selectedPoint?:TypeOffer;
+  selectedPoint?: string;
   fromOffer?: boolean;
 }
 
@@ -40,7 +40,7 @@ function MainMap({ offers, selectedPoint, fromOffer}:ListProps) {
 
         marker
           .setIcon(
-            selectedPoint !== undefined && elem?.id === selectedPoint?.id
+            selectedPoint !== undefined && elem?.id === selectedPoint
               ? currentCustomIcon
               : defaultCustomIcon
           )

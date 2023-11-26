@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { TypeOffer, TypeReview } from '../types/types-data';
-import { fetchAuthorization, fetchFavorites, setActiveCity, setError, setOffers, } from './action';
+import { fetchAuthorization, fetchFavorites, fetchOffer, setActiveCity, setError, setOffers, } from './action';
 import { CityName, AuthorizationStatus, RequestStatus } from '../const';
 import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction, loginAction, postComment, } from '../services/api-actions';
 
@@ -15,13 +15,14 @@ type InstialState = {
   reviews: TypeReview[];
   commentFetchingstatus:RequestStatus;
   offer: TypeOffer | undefined;
+  offerId: string|undefined;
   offerFetchingstatus:RequestStatus;
   favorites: TypeOffer[];
   favoritesFetchingstatus:RequestStatus;
   activeCity: CityName;
   authorizationStatus:AuthorizationStatus;
   error:string|null;
-  user:null;
+  user:string | null;
   loginSendingStatus:RequestStatus;
 };
 
@@ -33,6 +34,7 @@ const instialState:InstialState = {
   reviews:[],
   commentFetchingstatus:RequestStatus.Idle,
   offer:undefined,
+  offerId: undefined,
   offerFetchingstatus:RequestStatus.Idle,
   favorites:[],
   favoritesFetchingstatus:RequestStatus.Idle,
@@ -45,6 +47,9 @@ const instialState:InstialState = {
 
 const reducer = createReducer(instialState,(builder) =>{
   builder
+    .addCase(fetchOffer,(state, action) =>{
+      state.offerId = action.payload;
+    })
     .addCase(fetchOffersAction.pending,(state) =>{
       state.offersFetchingstatus = RequestStatus.Pending;
     })
@@ -55,8 +60,6 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(fetchOffersAction.rejected,(state) =>{
       state.offersFetchingstatus = RequestStatus.Error;
     })
-
-
     .addCase(fetchOfferAction.pending,(state) =>{
       state.offerFetchingstatus = RequestStatus.Pending;
     })
@@ -67,11 +70,9 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(fetchOfferAction.rejected,(state) =>{
       state.offerFetchingstatus = RequestStatus.Error;
     })
-
     .addCase(fetchNearbyPlaces.fulfilled,(state,action)=>{
       state.nearPlaces = action.payload;
     })
-
     .addCase(fetchCommentsAction.pending, (state)=>{
       state.commentFetchingstatus = RequestStatus.Pending;
     })
@@ -82,8 +83,6 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(fetchCommentsAction.rejected, (state)=>{
       state.commentFetchingstatus = RequestStatus.Error;
     })
-
-
     .addCase(fetchAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
@@ -93,27 +92,21 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(fetchFavorites, (state)=>{
       state.favorites = state.offers.filter((offer)=>offer.isFavorite);
     })
-
-
     .addCase(setError,(state,action) =>{
       state.error = action.payload;
-    }
-    )
+    })
     .addCase(loginAction.fulfilled,(state,action) =>{
       if(action.payload.token){
-        state.authorizationStatus = AuthorizationStatus.Auth;//?????????????????
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.user = action.payload.email;
       }
     })
-    .addCase(loginAction.rejected,(state, action) =>{
-      if(action.error){
-        state.authorizationStatus = AuthorizationStatus.NoAuth;//???????????
-      }
+    .addCase(loginAction.rejected,(state) =>{
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     })
-
     .addCase(setOffers,(state, action) =>{
       state.offers = action.payload;
     })
-
     .addCase(postComment.pending, (state)=>{
       state.commentFetchingstatus = RequestStatus.Pending;
     })
@@ -124,9 +117,7 @@ const reducer = createReducer(instialState,(builder) =>{
     .addCase(postComment.rejected, (state)=>{
       state.commentFetchingstatus = RequestStatus.Error;
     });
-  //.addCase(dropComment.pending, (state)=>{
-  //  state.comentFetchingstatus = RequestStatus.Idle;
-  //});
+
 
 });
 

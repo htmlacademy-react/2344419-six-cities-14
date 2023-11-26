@@ -15,15 +15,16 @@ function OfferReviews({reviews}:OfferCardProps):JSX.Element{
       </h2>
       <ul className="reviews__list">
         {reviews.map((review)=> {
-          const {rating, comment,date, user:{avatarUrl, name, id}} = review;
+          const {rating, comment,date, user} = review;
+
           return(
-            <li key={id} className="reviews__item">
+            <li key={user?.id} className="reviews__item">
               <div className="reviews__user user">
                 <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                  <img className="reviews__avatar user__avatar" src={avatarUrl} width="54" height="54" alt="Reviews avatar"/>
+                  <img className="reviews__avatar user__avatar" src={user?.avatarUrl} width="54" height="54" alt="Reviews avatar"/>
                 </div>
                 <span className="reviews__user-name">
-                  {name}
+                  {user?.name}
                 </span>
               </div>
               <div className="reviews__info">
