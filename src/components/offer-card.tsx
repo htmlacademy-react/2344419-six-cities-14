@@ -4,8 +4,9 @@ import OfferReviews from './offer-reviews';
 import { useState } from 'react';
 import FormComment from './form-comment';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { AuthorizationStatus } from '../const';
-import { postComment } from '../services/api-actions';
+import { AppRoute, AuthorizationStatus } from '../const';
+import { postComment, postFavorites } from '../store/api-actions';
+import { useNavigate } from 'react-router-dom';
 
 
 type OfferCardProps = {
@@ -15,10 +16,11 @@ reviews: TypeReview[];
 
 
 function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
-  const [reviewComment,setReviewComment] = useState<string>('');
-  const myState = useAppSelector((state) => state);
+  const status = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
-  const {authorizationStatus} = myState;
+  const navigate = useNavigate();
+
+  const [reviewComment,setReviewComment] = useState<string>('');
 
   const [ratingStars, setRatingStars] = useState(()=>[false, false, false, false, false]);
   const fieldChangeHandle = (evt: string) => {
@@ -29,11 +31,13 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   };
   const handleSubmit = () => {
     dispatch(postComment({offerId: offer?.id || '1', reviewData:  {comment: reviewComment, rating: 5 - ratingStars.indexOf(true)} }));
+    setReviewComment('');
+    setRatingStars([false, false, false, false, false]);
 
   };
 
 
-  const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods,} = offer;
+  const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods, id, isFavorite} = offer;
 
   return(
     <>
@@ -56,11 +60,22 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
             <h1 className="offer__name">
               {title}
             </h1>
-            <button className="offer__bookmark-button button" type="button">
+            <button
+              onClick={
+                status === AuthorizationStatus.Auth
+                  ? () => {
+                    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+                  } : () => {
+                    navigate(AppRoute.Login);
+                  }
+              }
+
+              className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button"
+            >
               <svg className="offer__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
-              <span className="visually-hidden">To bookmarks</span>
+              <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
             </button>
           </div>
           <div className="offer__rating rating">
@@ -117,15 +132,13 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
           </div>
           <OfferReviews reviews={reviews} />
 
-          { authorizationStatus === AuthorizationStatus.Auth ? (
-            <FormComment
-              reviewComment={reviewComment}
-              fieldChangeHandle={fieldChangeHandle}
-              ratingStars={ratingStars}
-              ratingChangeHandle={ratingChangeHandle}
-              handleSubmit={handleSubmit}
-            />
-          ) : ('') }
+          <FormComment
+            reviewComment={reviewComment}
+            fieldChangeHandle={fieldChangeHandle}
+            ratingStars={ratingStars}
+            ratingChangeHandle={ratingChangeHandle}
+            handleSubmit={handleSubmit}
+          />
 
         </div>
       </div>

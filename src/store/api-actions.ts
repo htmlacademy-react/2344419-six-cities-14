@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { TypeOffer, TypeResponseReview, TypeReview } from '../types/types-data';
 import { APIRoute, NameSpace } from '../const';
-import { dropToken, saveToken } from './token';
+import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/data';
 
 export const fetchOffersAction = createAsyncThunk<TypeOffer[], undefined, {
@@ -68,14 +68,26 @@ export const fetchNearbyPlaces = createAsyncThunk<TypeOffer[], TypeOffer['id'], 
   }
 );
 
-export const fetchFavoritasAction = createAsyncThunk<TypeOffer[], TypeOffer['id'], {
+export const fetchFavoritesAction = createAsyncThunk<TypeOffer[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>
 (
-  `${NameSpace.Favorites}/fetchFavoritas`,
+  `${NameSpace.Favorites}/fetchFavorites`,
   async(_arg,{ extra:api })=>{
     const { data } = await api.get<TypeOffer[]>(APIRoute.Favorites);
+    return data;
+  }
+);
+
+export const postFavorites = createAsyncThunk<TypeOffer, {offer :TypeOffer; offerId: TypeOffer['id']; status: number}, {
+  state: State;
+  extra: AxiosInstance;
+}>
+(
+  `${NameSpace.Favorites}/postFavorites`,
+  async({offer, offerId, status},{ extra:api })=>{
+    const { data } = await api.post<TypeOffer>(`${APIRoute.Favorites}/${offerId}/${status}`, offer);
     return data;
   }
 );

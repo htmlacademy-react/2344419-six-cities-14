@@ -19,6 +19,8 @@ export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivC
 
 export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetch`);
 
+export const setFavorites = createAction(`${NameSpace.Favorites}/set`);
+
 export const fetchAuthorization = createAction<AuthorizationStatus>('user/fetchAuthorization');
 
 export const setError = createAction<string|null>('/error');

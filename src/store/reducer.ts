@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import { TypeOffer, TypeReview } from '../types/types-data';
 import { fetchAuthorization, fetchFavorites, fetchOffer, setActiveCity, setError, setOffers, } from './action';
 import { CityName, AuthorizationStatus, RequestStatus } from '../const';
-import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction, loginAction, postComment, } from '../services/api-actions';
+import { fetchCommentsAction, fetchFavoritesAction, fetchNearbyPlaces, fetchOfferAction, fetchOffersAction, loginAction, postComment, postFavorites, } from './api-actions';
 
 
 export const DEFAULT_CITY = CityName.Paris;
@@ -15,13 +15,13 @@ type InstialState = {
   reviews: TypeReview[];
   commentFetchingstatus:RequestStatus;
   offer: TypeOffer | undefined;
-  offerId: string|undefined;
+  offerId: string | undefined;
   offerFetchingstatus:RequestStatus;
   favorites: TypeOffer[];
   favoritesFetchingstatus:RequestStatus;
   activeCity: CityName;
   authorizationStatus:AuthorizationStatus;
-  error:string|null;
+  error:string | null;
   user:string | null;
   loginSendingStatus:RequestStatus;
 };
@@ -91,6 +91,16 @@ const reducer = createReducer(instialState,(builder) =>{
     })
     .addCase(fetchFavorites, (state)=>{
       state.favorites = state.offers.filter((offer)=>offer.isFavorite);
+    })
+    .addCase(fetchFavoritesAction.fulfilled, (state, {payload})=>{
+      state.favorites = payload;
+    })
+    .addCase(postFavorites.fulfilled, (state, {payload})=>{
+      if(payload.isFavorite){
+        state.favorites.push(payload);
+      } else {
+        state.favorites = state.favorites.filter((fav)=> fav.id !== payload.id);
+      }
     })
     .addCase(setError,(state,action) =>{
       state.error = action.payload;

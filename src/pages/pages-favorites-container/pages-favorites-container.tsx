@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks/hooks';
-import FavoritesCard from '../../components/favorites-cards';
 import { TypeOffer } from '../../types/types-data';
+import PagesCard from '../../components/card';
 
 function getFavoriteByCity(favorites:TypeOffer[]){
   return favorites.reduce<{[key:string]:TypeOffer[]}>((acc,curr) => {
@@ -74,9 +74,10 @@ function PagesFavoritesContainer():JSX.Element{
                     </div>
                     <div className="favorites__places">
                       {groupedFavorites.map((offer)=>(
-                        <FavoritesCard
-                          key = {offer.id}
-                          offer = {offer}
+                        <PagesCard
+                          key={offer.id}
+                          offer={offer}
+                          fromFavorite
                         />
                       ))}
 

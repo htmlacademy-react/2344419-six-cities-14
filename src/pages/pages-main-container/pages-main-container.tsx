@@ -8,7 +8,7 @@ import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
 import { TypeOffer } from '../../types/types-data.ts';
 import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
-import { fetchOffersAction } from '../../services/api-actions.ts';
+import { fetchFavoritesAction, fetchOffersAction } from '../../store/api-actions.ts';
 import { useLayoutEffect, useMemo } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
@@ -29,6 +29,7 @@ function PagesMainContainer(): JSX.Element {
 
   useLayoutEffect(()=>{
     dispatch(fetchOffersAction());
+    dispatch(fetchFavoritesAction());
   },[dispatch]);
 
   const newOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);

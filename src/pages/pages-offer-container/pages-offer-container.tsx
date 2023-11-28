@@ -7,7 +7,7 @@ import { dropOffer } from '../../store/action.ts';
 import { MAX_CUNT_NEAR_PLACES, RequestStatus } from '../../const.ts';
 import { useEffect, useMemo } from 'react';
 import MainMap from '../../components/main-map.tsx';
-import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../services/api-actions.ts';
+import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../store/api-actions.ts';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 
