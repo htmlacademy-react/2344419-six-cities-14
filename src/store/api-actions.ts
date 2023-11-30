@@ -1,10 +1,24 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { TypeOffer, TypeResponseReview, TypeReview } from '../types/types-data';
-import { APIRoute, NameSpace } from '../const';
+import { APIRoute, AuthorizationStatus, CityName, NameSpace } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/data';
+
+export const fetchOffer = createAction<TypeOffer['id']>(`${NameSpace.Offer}/fetch`);
+
+export const setOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/set`);
+
+export const fetchAuthorization = createAction<AuthorizationStatus>((`${NameSpace.User}/fetchAuthorization`));
+
+export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetch`);
+
+export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivCity`);
+
+export const setError = createAction<string|null>('/error');
+
+export const dropOffer = createAction(`${NameSpace.Offer}/dropOffer`);
 
 export const fetchOffersAction = createAsyncThunk<TypeOffer[], undefined, {
   dispatch: AppDispatch;

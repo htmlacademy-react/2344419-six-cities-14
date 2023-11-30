@@ -2,13 +2,12 @@ import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
 import { AuthorizationStatus, CityName, RequestStatus } from '../../const.ts';
-import { fetchOffer, setActiveCity, setOffers } from '../../store/action.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
 import { TypeOffer } from '../../types/types-data.ts';
 import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
-import { fetchFavoritesAction, fetchOffersAction } from '../../store/api-actions.ts';
+import { fetchFavoritesAction, fetchOffer, fetchOffersAction, setActiveCity, setOffers } from '../../store/api-actions.ts';
 import { useLayoutEffect, useMemo } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
@@ -23,7 +22,7 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
-  const myState = useAppSelector((state) => state);
+  const myState = useAppSelector((state) => state.OFFER);
 
   const {activeCity, offers, offerId, favorites, authorizationStatus, offersFetchingstatus, user} = myState;
 

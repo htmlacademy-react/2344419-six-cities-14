@@ -36,7 +36,7 @@ export enum NameSpace {
   Reviews = 'REVIEWS',
   User = 'USER',
   City = 'CITY',
-  Point = 'POINT'
+  Error = 'ERROR'
 }
 
 
@@ -61,5 +61,5 @@ export const MAX_CUNT_NEAR_PLACES = 3;
 export const URL_MARKER_DEFAULT = '../img/pin.svg';
 
 export const URL_MARKER_CURRENT = '../img/pin-active.svg';
-
+export const DEFAULT_CITY = CityName.Paris;
 

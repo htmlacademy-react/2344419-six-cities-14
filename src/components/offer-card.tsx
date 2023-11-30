@@ -16,7 +16,7 @@ reviews: TypeReview[];
 
 
 function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
-  const status = useAppSelector((state) => state.authorizationStatus);
+  const status = useAppSelector((state) => state.OFFER.authorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

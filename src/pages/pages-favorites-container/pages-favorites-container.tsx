@@ -17,9 +17,10 @@ function getFavoriteByCity(favorites:TypeOffer[]){
 
 function PagesFavoritesContainer():JSX.Element{
 
-  const myState = useAppSelector((state) => state);
+  const favorites = useAppSelector((state) => state.FAVORITES.favorites);
+  const user = useAppSelector((state) => state.USER.user);
 
-  const { favorites, user} = myState;
+
   const favoriteByCity = getFavoriteByCity(favorites);
   return(
     <div className="page">

@@ -3,19 +3,18 @@ import OfferCard from '../../components/offer-card';
 import { useParams } from 'react-router-dom';
 import OffersReviewsList from '../../components/offer-reviews-list.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
-import { dropOffer } from '../../store/action.ts';
 import { MAX_CUNT_NEAR_PLACES, RequestStatus } from '../../const.ts';
 import { useEffect, useMemo } from 'react';
 import MainMap from '../../components/main-map.tsx';
-import { fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../store/api-actions.ts';
+import { dropOffer, fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../store/api-actions.ts';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 
 function PagesOfferContainer():JSX.Element{
   const dispatch = useAppDispatch();
-  const fetchingStatus = useAppSelector((state)=>state.offerFetchingstatus);
+  const fetchingStatus = useAppSelector((state)=>state.OFFERS.offerFetchingstatus);
 
-  const myState = useAppSelector((state) => state);
+  const myState = useAppSelector((state) => state.OFFER);
   const {offer, offers, reviews, nearPlaces, activeCity} = myState;
 
   const filteredOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);

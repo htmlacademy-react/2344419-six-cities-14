@@ -17,7 +17,7 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
 
   const {price, previewImage, rating, isFavorite, type, isPremium, id, title} = offer;
 
-  const status = useAppSelector((state) => state.authorizationStatus);
+  const status = useAppSelector((state) => state.OFFER.authorizationStatus);
 
   return (
     <article className={`${fromFavorite ? 'favorites__card' : 'cities__card'} place-card`} onMouseEnter={(event)=>{
