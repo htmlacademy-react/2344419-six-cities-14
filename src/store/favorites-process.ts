@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../const';
-import { fetchFavorites, fetchFavoritesAction, postFavorites } from './api-actions';
+import { fetchFavoritesAction, postFavorites } from './api-actions';
 
 import { TypeOffer } from '../types/types-data';
 
@@ -24,9 +24,6 @@ export const favoritesProcess = createSlice({
   reducers:{},
   extraReducers(builder){
     builder
-      .addCase(fetchFavorites, (state)=>{
-        state.favorites = state.offers.filter((offer)=>offer.isFavorite);
-      })
       .addCase(fetchFavoritesAction.fulfilled, (state, {payload})=>{
         state.favorites = payload;
       })

@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { TypeOffer, TypeResponseReview, TypeReview } from '../types/types-data';
-import { APIRoute, AuthorizationStatus, CityName, NameSpace } from '../const';
+import { APIRoute, CityName, NameSpace } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/data';
 
@@ -10,9 +10,6 @@ export const fetchOffer = createAction<TypeOffer['id']>(`${NameSpace.Offer}/fetc
 
 export const setOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/set`);
 
-export const fetchAuthorization = createAction<AuthorizationStatus>((`${NameSpace.User}/fetchAuthorization`));
-
-export const fetchFavorites = createAction(`${NameSpace.Favorites}/fetch`);
 
 export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivCity`);
 

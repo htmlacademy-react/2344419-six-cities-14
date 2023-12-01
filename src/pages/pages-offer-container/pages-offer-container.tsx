@@ -9,13 +9,18 @@ import MainMap from '../../components/main-map.tsx';
 import { dropOffer, fetchCommentsAction, fetchNearbyPlaces, fetchOfferAction } from '../../store/api-actions.ts';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
+import { getActiveCyty, getNearPlaces, getOffer, getOfferFetchingstatus, getOffers, getReviews } from '../../store/selectors.ts';
 
 function PagesOfferContainer():JSX.Element{
   const dispatch = useAppDispatch();
-  const fetchingStatus = useAppSelector((state)=>state.OFFERS.offerFetchingstatus);
 
-  const myState = useAppSelector((state) => state.OFFER);
-  const {offer, offers, reviews, nearPlaces, activeCity} = myState;
+  const offer = useAppSelector(getOffer);
+  const offers = useAppSelector(getOffers);
+  const activeCity = useAppSelector(getActiveCyty);
+  const reviews = useAppSelector(getReviews);
+  const nearPlaces = useAppSelector(getNearPlaces);
+  const fetchingStatus = useAppSelector(getOfferFetchingstatus);
+
 
   const filteredOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
 

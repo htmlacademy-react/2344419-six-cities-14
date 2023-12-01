@@ -13,7 +13,6 @@ type ReviewsProcess = {
 const initialState:ReviewsProcess = {
   reviews: [],
   commentFetchingstatus:RequestStatus.Idle,
-
 };
 
 export const reviewsProcess = createSlice({

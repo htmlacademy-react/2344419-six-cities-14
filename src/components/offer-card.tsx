@@ -1,12 +1,13 @@
 
 import { TypeOffer, TypeReview } from '../types/types-data';
 import OfferReviews from './offer-reviews';
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 import FormComment from './form-comment';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { postComment, postFavorites } from '../store/api-actions';
 import { useNavigate } from 'react-router-dom';
+import { getAuthorizationStatus } from '../store/selectors';
 
 
 type OfferCardProps = {
@@ -16,28 +17,33 @@ reviews: TypeReview[];
 
 
 function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
-  const status = useAppSelector((state) => state.OFFER.authorizationStatus);
+  const status = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [reviewComment,setReviewComment] = useState<string>('');
 
   const [ratingStars, setRatingStars] = useState(()=>[false, false, false, false, false]);
-  const fieldChangeHandle = (evt: string) => {
+
+  const fieldChangeHandle = useCallback((evt: string) => {
     setReviewComment(evt);
-  };
-  const ratingChangeHandle = (evt: boolean[]) => {
+  },[]);
+
+  const ratingChangeHandle = useCallback((evt: boolean[]) => {
     setRatingStars(evt);
-  };
-  const handleSubmit = () => {
+  },[]);
+
+  const handleSubmit = useCallback(() => {
     dispatch(postComment({offerId: offer?.id || '1', reviewData:  {comment: reviewComment, rating: 5 - ratingStars.indexOf(true)} }));
     setReviewComment('');
     setRatingStars([false, false, false, false, false]);
-
-  };
-
+  },[dispatch, offer?.id, ratingStars, reviewComment]);
 
   const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods, id, isFavorite} = offer;
+  const onClickFavoritesCard = useCallback(() => {
+    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+  },[dispatch, id, isFavorite, offer]);
+
 
   return(
     <>
@@ -63,9 +69,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
             <button
               onClick={
                 status === AuthorizationStatus.Auth
-                  ? () => {
-                    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
-                  } : () => {
+                  ? onClickFavoritesCard : () => {
                     navigate(AppRoute.Login);
                   }
               }
@@ -132,13 +136,14 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
           </div>
           <OfferReviews reviews={reviews} />
 
-          <FormComment
-            reviewComment={reviewComment}
-            fieldChangeHandle={fieldChangeHandle}
-            ratingStars={ratingStars}
-            ratingChangeHandle={ratingChangeHandle}
-            handleSubmit={handleSubmit}
-          />
+          {status === AuthorizationStatus.Auth ?
+            <FormComment
+              reviewComment={reviewComment}
+              fieldChangeHandle={fieldChangeHandle}
+              ratingStars={ratingStars}
+              ratingChangeHandle={ratingChangeHandle}
+              handleSubmit={handleSubmit}
+            /> : ''}
 
         </div>
       </div>
@@ -146,4 +151,4 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

@@ -3,6 +3,8 @@ import { TypeOffer } from '../types/types-data';
 import { AuthorizationStatus } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { fetchOffersAction, postFavorites } from '../store/api-actions';
+import { getAuthorizationStatus } from '../store/selectors';
+import { memo, useCallback } from 'react';
 
 
 type CitesPlacesProps = {
@@ -17,7 +19,12 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
 
   const {price, previewImage, rating, isFavorite, type, isPremium, id, title} = offer;
 
-  const status = useAppSelector((state) => state.OFFER.authorizationStatus);
+  const status = useAppSelector(getAuthorizationStatus);
+
+  const onClickFavoritesCard = useCallback(() => {
+    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+    dispatch(fetchOffersAction());
+  },[dispatch, id, isFavorite, offer]);
 
   return (
     <article className={`${fromFavorite ? 'favorites__card' : 'cities__card'} place-card`} onMouseEnter={(event)=>{
@@ -44,10 +51,7 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
           {status === AuthorizationStatus.Auth ?
             (
               <button
-                onClick={() => {
-                  dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
-                  dispatch(fetchOffersAction());
-                }}
+                onClick={onClickFavoritesCard}
                 className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active button' : ''}`} type="button"
               >
                 <svg className="place-card__bookmark-icon" width="18" height="19" >
@@ -71,4 +75,4 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
     </article>
   );
 }
-export default PagesCard;
+export default memo(PagesCard);

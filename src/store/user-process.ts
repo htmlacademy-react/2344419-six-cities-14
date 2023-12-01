@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../const';
-import { fetchAuthorization, loginAction } from './api-actions';
+import { loginAction } from './api-actions';
 
 type UserProcess = {
   authorizationStatus:AuthorizationStatus;
@@ -26,9 +26,6 @@ export const userProcess = createSlice({
       })
       .addCase(loginAction.rejected,(state) =>{
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-      })
-      .addCase(fetchAuthorization, (state, action) => {
-        state.authorizationStatus = action.payload;
       });
   }
 });

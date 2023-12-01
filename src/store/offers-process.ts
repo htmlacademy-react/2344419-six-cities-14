@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus, CityName, DEFAULT_CITY, NameSpace, RequestStatus } from '../const';
+import { CityName, DEFAULT_CITY, NameSpace, RequestStatus } from '../const';
 import { fetchOffersAction, setOffers, } from './api-actions';
 import { TypeOffer, TypeReview } from '../types/types-data';
 
@@ -11,13 +11,9 @@ type OffersProcess = {
   nearbyFetchingstatus: RequestStatus;
   reviews: TypeReview[];
   commentFetchingstatus:RequestStatus;
-  offer: TypeOffer | undefined;
-  offerId: string | undefined;
-  offerFetchingstatus:RequestStatus;
   favorites: TypeOffer[];
   favoritesFetchingstatus:RequestStatus;
   activeCity: CityName;
-  authorizationStatus:AuthorizationStatus;
   error:string | null;
   user:string | null;
   loginSendingStatus:RequestStatus;
@@ -30,13 +26,9 @@ const initialState:OffersProcess = {
   nearbyFetchingstatus: RequestStatus.Idle,
   reviews:[],
   commentFetchingstatus:RequestStatus.Idle,
-  offer:undefined,
-  offerId: undefined,
-  offerFetchingstatus:RequestStatus.Idle,
   favorites:[],
   favoritesFetchingstatus:RequestStatus.Idle,
   activeCity:DEFAULT_CITY,
-  authorizationStatus:AuthorizationStatus.Unknown,
   error:null,
   user:null,
   loginSendingStatus:RequestStatus.Idle,
