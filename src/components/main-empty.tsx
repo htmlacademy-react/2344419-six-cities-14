@@ -1,5 +1,6 @@
 type MainEmptyProps = {
   city:string;
+
 }
 
 function MainEmpty({city}:MainEmptyProps):JSX.Element{
