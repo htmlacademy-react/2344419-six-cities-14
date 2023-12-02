@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks/hooks';
-import { setActiveCity } from '../../store/action';
+
 import { CityName } from '../../const';
 import { Link } from 'react-router-dom';
-import { loginAction } from '../../services/api-actions';
+import { loginAction, setActiveCity } from '../../store/api-actions';
 import { useState } from 'react';
 
 

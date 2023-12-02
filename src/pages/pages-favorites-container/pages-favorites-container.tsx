@@ -1,7 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks/hooks';
-import FavoritesCard from '../../components/favorites-cards';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { TypeOffer } from '../../types/types-data';
+import PagesCard from '../../components/card';
+import { getFavorites, getUser } from '../../store/selectors';
+import { setActiveCity } from '../../store/api-actions';
+import { CityName } from '../../const';
+import { Link } from 'react-router-dom';
 
 function getFavoriteByCity(favorites:TypeOffer[]){
   return favorites.reduce<{[key:string]:TypeOffer[]}>((acc,curr) => {
@@ -17,9 +21,11 @@ function getFavoriteByCity(favorites:TypeOffer[]){
 
 function PagesFavoritesContainer():JSX.Element{
 
-  const myState = useAppSelector((state) => state);
+  const favorites = useAppSelector(getFavorites);
+  const user = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
 
-  const { favorites, user} = myState;
+
   const favoriteByCity = getFavoriteByCity(favorites);
   return(
     <div className="page">
@@ -67,16 +73,20 @@ function PagesFavoritesContainer():JSX.Element{
                   <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <a className="locations__item-link" href="#">
+                        <Link className="locations__item-link" to="http://localhost:5173/"onClick={
+                          ()=> dispatch(setActiveCity(city as CityName))
+                        }
+                        >
                           <span>{city}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="favorites__places">
                       {groupedFavorites.map((offer)=>(
-                        <FavoritesCard
-                          key = {offer.id}
-                          offer = {offer}
+                        <PagesCard
+                          key={offer.id}
+                          offer={offer}
+                          fromFavorite
                         />
                       ))}
 

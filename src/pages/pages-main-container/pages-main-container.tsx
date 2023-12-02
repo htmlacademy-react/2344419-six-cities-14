@@ -2,17 +2,17 @@ import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
 import { AuthorizationStatus, CityName, RequestStatus } from '../../const.ts';
-import { fetchOffer, setActiveCity, setOffers } from '../../store/action.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
 import { TypeOffer } from '../../types/types-data.ts';
 import { sortByRating, sortHighToLow, sortLowToHigh } from '../../utils.ts';
-import { fetchOffersAction } from '../../services/api-actions.ts';
-import { useLayoutEffect, useMemo } from 'react';
+import { fetchFavoritesAction, fetchOffer, fetchOffersAction, setActiveCity, setOffers } from '../../store/api-actions.ts';
+import { useCallback, useLayoutEffect, useMemo } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 import { Link } from 'react-router-dom';
+import { getActiveCyty, getAuthorizationStatus, getFavorites, getOfferId, getOffers, getOffersFetchingstatus, getUser } from '../../store/selectors.ts';
 
 const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
   Popular: (offers:TypeOffer[]) => offers.slice(),
@@ -23,20 +23,28 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
-  const myState = useAppSelector((state) => state);
+  const activeCity = useAppSelector(getActiveCyty);
+  const offers = useAppSelector(getOffers);
+  const offersFetchingstatus = useAppSelector(getOffersFetchingstatus);
+  const offerId = useAppSelector(getOfferId);
+  const favorites = useAppSelector(getFavorites);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
 
-  const {activeCity, offers, offerId, favorites, authorizationStatus, offersFetchingstatus, user} = myState;
 
   useLayoutEffect(()=>{
     dispatch(fetchOffersAction());
-  },[dispatch]);
+    if(user){
+      dispatch(fetchFavoritesAction());
+    }
+  },[dispatch, user]);
 
   const newOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
 
-  const onChange = (type:TypeSorting) =>{
-    dispatch(setOffers(sortingPoint[type](newOffers)));
-  };
+  const onChange = useCallback((type:TypeSorting) =>
+    dispatch(setOffers(sortingPoint[type](newOffers))),[dispatch, newOffers]);
 
+  const onListItemHover = useCallback((id: string)=> dispatch(fetchOffer(id)),[dispatch]);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -120,7 +128,7 @@ function PagesMainContainer(): JSX.Element {
                 <SortingTypePoint onChange={onChange}/>
 
                 <div className="cities__places-list places__list tabs__content">
-                  <OffersList offers={newOffers} onListItemHover={(id)=> dispatch(fetchOffer(id))}/>
+                  <OffersList offers={newOffers} onListItemHover={onListItemHover}/>
                 </div>
               </section>
               <div className="cities__right-section">

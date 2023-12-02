@@ -1,5 +1,7 @@
 
 import { TypeReview } from '../types/types-data';
+import { memo } from 'react';
+
 
 type OfferCardProps = {
 reviews: TypeReview[];
@@ -46,4 +48,4 @@ function OfferReviews({reviews}:OfferCardProps):JSX.Element{
     </section>
   );
 }
-export default OfferReviews;
+export default memo(OfferReviews);

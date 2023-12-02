@@ -1,3 +1,4 @@
+import { memo } from 'react';
 
 type FormComentProps ={
   reviewComment: string;
@@ -60,4 +61,4 @@ function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChang
   );
 }
 
-export default FormComment;
+export default memo(FormComment);
