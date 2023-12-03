@@ -13,6 +13,8 @@ import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 import { Link } from 'react-router-dom';
 import { getActiveCyty, getAuthorizationStatus, getFavorites, getOfferId, getOffers, getOffersFetchingstatus, getUser } from '../../store/selectors.ts';
+import MainEmpty from '../../components/main-empty.tsx';
+
 
 const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
   Popular: (offers:TypeOffer[]) => offers.slice(),
@@ -120,24 +122,27 @@ function PagesMainContainer(): JSX.Element {
         {offersFetchingstatus === RequestStatus.Error && <PagesNotFoundContainer />}
         {offersFetchingstatus === RequestStatus.Pending && <LoadingSpiner/>}
         {offersFetchingstatus === RequestStatus.Success && (
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{newOffers?.length} places to stay in {activeCity}</b>
-                <SortingTypePoint onChange={onChange}/>
 
-                <div className="cities__places-list places__list tabs__content">
-                  <OffersList offers={newOffers} onListItemHover={onListItemHover}/>
-                </div>
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <MainMap offers={newOffers} selectedPoint={offerId} />
+          newOffers.length === 0 ? <MainEmpty city={activeCity}/> :
+
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{newOffers?.length} places to stay in {activeCity}</b>
+                  <SortingTypePoint onChange={onChange}/>
+
+                  <div className="cities__places-list places__list tabs__content">
+                    <OffersList offers={newOffers} onListItemHover={onListItemHover}/>
+                  </div>
                 </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <MainMap offers={newOffers} selectedPoint={offerId} />
+                  </section>
+                </div>
               </div>
-            </div>
-          </div>)}
+            </div>)}
       </main>
     </div>
   );
