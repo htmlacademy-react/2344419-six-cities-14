@@ -94,7 +94,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
               {type}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
-              {bedrooms}
+              {bedrooms === 1 ? '1 Bedroom' : `${bedrooms} Bedrooms`}
             </li>
             <li className="offer__feature offer__feature--adults">
               {maxAdults}
@@ -134,7 +134,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
               </p>
             </div>
           </div>
-          <OfferReviews reviews={reviews} />
+          <OfferReviews reviews={reviews}/>
 
           {status === AuthorizationStatus.Auth ?
             <FormComment

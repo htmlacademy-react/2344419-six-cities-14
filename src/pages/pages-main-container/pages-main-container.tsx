@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import OffersList from '../../components/offers-list.tsx';
 import MainMap from '../../components/main-map.tsx';
-import { AuthorizationStatus, CityName, RequestStatus } from '../../const.ts';
+import { CityName, RequestStatus } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks.ts';
 import { SortingTypePoint} from '../../sorting.tsx';
 import { TypeSorting } from '../../types/sorting.ts';
@@ -11,9 +11,10 @@ import { fetchFavoritesAction, fetchOffer, fetchOffersAction, setActiveCity, set
 import { useCallback, useLayoutEffect, useMemo } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
-import { Link } from 'react-router-dom';
-import { getActiveCyty, getAuthorizationStatus, getFavorites, getOfferId, getOffers, getOffersFetchingstatus, getUser } from '../../store/selectors.ts';
+
+import { getActiveCyty, getOfferId, getOffers, getOffersFetchingstatus, getUser } from '../../store/selectors.ts';
 import MainEmpty from '../../components/main-empty.tsx';
+import Header from '../../components/header.tsx';
 
 
 const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
@@ -29,8 +30,6 @@ function PagesMainContainer(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const offersFetchingstatus = useAppSelector(getOffersFetchingstatus);
   const offerId = useAppSelector(getOfferId);
-  const favorites = useAppSelector(getFavorites);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const user = useAppSelector(getUser);
 
 
@@ -41,7 +40,7 @@ function PagesMainContainer(): JSX.Element {
     }
   },[dispatch, user]);
 
-  const newOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
+  const newOffers = useMemo(() => offers?.filter((item:TypeOffer)=> item.city.name === activeCity as string), [activeCity, offers]);//по городу
 
   const onChange = useCallback((type:TypeSorting) =>
     dispatch(setOffers(sortingPoint[type](newOffers))),[dispatch, newOffers]);
@@ -49,47 +48,7 @@ function PagesMainContainer(): JSX.Element {
   const onListItemHover = useCallback((id: string)=> dispatch(fetchOffer(id)),[dispatch]);
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" >
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-            <nav className="header__nav">
-
-
-              {authorizationStatus === AuthorizationStatus.Auth ? (
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to="favorites">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">{user}</span>
-                      <span className="header__favorite-count">{favorites.length}</span>
-                    </Link>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="login">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              ) : (
-                <ul className="header__nav-list">
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="login" >
-                      <span className="header__signout">Sign in</span>
-                    </a>
-                  </li>
-                </ul>
-              )}
-
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -129,7 +88,7 @@ function PagesMainContainer(): JSX.Element {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{newOffers?.length} places to stay in {activeCity}</b>
+                  <b className="places__found">{newOffers?.length === 1 ? ' 1 place' : `${newOffers?.length} places`}  to stay in {activeCity}</b>
                   <SortingTypePoint onChange={onChange}/>
 
                   <div className="cities__places-list places__list tabs__content">

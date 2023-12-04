@@ -19,13 +19,17 @@ export enum RequestStatus {
   Error = 'ERROR',
 }
 
+export const CityN = [
+  'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg','Dusseldorf'
+];
+
 export enum CityName {
-  Amsterdam ='Amsterdam',
   Paris = 'Paris',
   Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam ='Amsterdam',
   Hamburg = 'Hamburg',
   Dusseldorf ='Dusseldorf',
-  Brussels = 'Brussels',
 }
 
 export enum NameSpace {
@@ -56,7 +60,20 @@ export enum APIRoute {
   Favorites = '/favorite'
 }
 
+export enum MONTH_NAMES {
+  'January', 'February', 'March',
+  'April', 'May', 'June', 'July',
+  'August', 'September', 'October',
+  'November', 'December'
+}
+export enum LengthComment {
+  MIN = 50,
+  MAX = 300
+}
+
 export const MAX_CUNT_NEAR_PLACES = 3;
+export const MAX_LENGTH_REVIEW = 10;
+export const DEFAULT_VALUE_NULL = 0;
 
 export const URL_MARKER_DEFAULT = '../img/pin.svg';
 

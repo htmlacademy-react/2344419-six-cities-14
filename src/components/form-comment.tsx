@@ -1,4 +1,5 @@
 import { memo } from 'react';
+//import { DEFAULT_VALUE_NULL, LengthComment } from '../const';
 
 type FormComentProps ={
   reviewComment: string;
@@ -10,6 +11,8 @@ type FormComentProps ={
 
 function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChangeHandle, handleSubmit}: FormComentProps):JSX.Element{
 
+  //const isCommentLengthValid = ((reviewComment.split('')).length >= LengthComment.MIN &&(reviewComment.split('')).length <= LengthComment.MAX);
+  //const isValid = !(isCommentLengthValid && ratingStars !== DEFAULT_VALUE_NULL);
 
   return (
     <form
@@ -52,6 +55,7 @@ function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChang
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
+        //disabled={isValid}
 
           className="reviews__submit form__submit button" type="submit"
         >Submit

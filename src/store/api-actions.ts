@@ -11,7 +11,7 @@ export const fetchOffer = createAction<TypeOffer['id']>(`${NameSpace.Offer}/fetc
 export const setOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/set`);
 
 
-export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivCity`);
+export const setActiveCity = createAction<string>(`${NameSpace.City}/setActivCity`);
 
 export const setError = createAction<string|null>('/error');
 
