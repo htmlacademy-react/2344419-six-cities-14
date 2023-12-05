@@ -5,9 +5,9 @@ import { useState, memo, useCallback } from 'react';
 import FormComment from './form-comment';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { postComment, postFavorites } from '../store/api-actions';
+import { fetchOfferAction, postComment, postFavorites } from '../store/api-actions';
 import { useNavigate } from 'react-router-dom';
-import { getAuthorizationStatus } from '../store/selectors';
+import { getAuthorizationStatus, getOffer } from '../store/selectors';
 
 
 type OfferCardProps = {
@@ -40,9 +40,18 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   },[dispatch, offer?.id, ratingStars, reviewComment]);
 
   const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods, id, isFavorite} = offer;
+
   const onClickFavoritesCard = useCallback(() => {
-    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
-  },[dispatch, id, isFavorite, offer]);
+    if(status === AuthorizationStatus.Auth){
+      dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+      dispatch(fetchOfferAction(id));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  },
+  [dispatch, id, isFavorite, navigate, offer, status]);
+
+
   const getRating = Math.round(rating) / 5 * 100;
 
 
@@ -69,10 +78,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
             </h1>
             <button
               onClick={
-                status === AuthorizationStatus.Auth
-                  ? onClickFavoritesCard : () => {
-                    navigate(AppRoute.Login);
-                  }
+                onClickFavoritesCard
               }
 
               className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button"

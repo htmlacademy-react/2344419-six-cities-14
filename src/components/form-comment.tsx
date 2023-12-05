@@ -26,8 +26,8 @@ function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChang
         {['perfect','good','not bad','badly','terribly'].map((e, index)=> {
           const keyValue = `${index}-${e}`;
           return (
-            <>
-              <input key={keyValue} onChange={({target}) => {
+            <div key={keyValue}>
+              <input onChange={({target}) => {
 
                 ratingChangeHandle([...ratingStars.slice(0, Number(target.value)), target.checked, ...ratingStars.slice(Number(target.value) + 1)]);
               }} className="form__rating-input visually-hidden" name="rating" value={index} id={`${index}-stars`} type="radio" checked={ratingStars[index]}
@@ -37,7 +37,7 @@ function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChang
                   <use xlinkHref="#icon-star"></use>
                 </svg>
               </label>
-            </>);
+            </div>);
         })}
       </div>
       <textarea onChange={(e) => fieldChangeHandle(e.target.value)} className="reviews__textarea form__textarea"

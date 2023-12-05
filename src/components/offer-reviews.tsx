@@ -29,7 +29,7 @@ function OfferReviews({reviews}:OfferCardProps):JSX.Element{
       <ul className="reviews__list">
         {
           slicedComments.map((review)=> {
-            const {rating, comment, date, user} = review;
+            const {rating, comment, date, user, id} = review;
             const inputDate = new Date(date);
             const month = MONTH_NAMES[inputDate.getMonth()];
             const year = inputDate.getFullYear();
@@ -37,7 +37,7 @@ function OfferReviews({reviews}:OfferCardProps):JSX.Element{
 
 
             return(
-              <li key={user?.id} className="reviews__item">
+              <li key={id} className="reviews__item">
                 <div className="reviews__user user">
                   <div className="reviews__avatar-wrapper user__avatar-wrapper">
                     <img className="reviews__avatar user__avatar" src={user?.avatarUrl} width="54" height="54" alt="Reviews avatar"/>
