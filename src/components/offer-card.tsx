@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { fetchOfferAction, postComment, postFavorites } from '../store/api-actions';
 import { useNavigate } from 'react-router-dom';
-import { getAuthorizationStatus, getOffer } from '../store/selectors';
+import { getAuthorizationStatus } from '../store/selectors';
 
 
 type OfferCardProps = {

@@ -12,7 +12,7 @@ import { useCallback, useLayoutEffect, useMemo } from 'react';
 import { LoadingSpiner } from '../../components/loading-spiner.tsx';
 import PagesNotFoundContainer from '../pages-not-found-container/pages-not-found-container.tsx';
 
-import { getActiveCyty, getOfferId, getOffers, getOffersFetchingstatus, getUser } from '../../store/selectors.ts';
+import { getActiveCity, getOfferId, getOffers, getOffersFetchingstatus, getUser } from '../../store/selectors.ts';
 import MainEmpty from '../../components/main-empty.tsx';
 import Header from '../../components/header.tsx';
 
@@ -26,7 +26,7 @@ const sortingPoint:Record<TypeSorting, (offers: TypeOffer[]) => TypeOffer[]> = {
 
 function PagesMainContainer(): JSX.Element {
   const dispatch = useAppDispatch();
-  const activeCity = useAppSelector(getActiveCyty);
+  const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
   const offersFetchingstatus = useAppSelector(getOffersFetchingstatus);
   const offerId = useAppSelector(getOfferId);
@@ -40,7 +40,7 @@ function PagesMainContainer(): JSX.Element {
     }
   },[dispatch, user]);
 
-  const newOffers = useMemo(() => offers?.filter((item:TypeOffer)=> item.city.name === activeCity as string), [activeCity, offers]);
+  const newOffers = useMemo(() => offers?.filter((item:TypeOffer)=> item.city.name === activeCity), [activeCity, offers]);
 
   const onChange = useCallback((type:TypeSorting) =>
     dispatch(setOffers(sortingPoint[type](newOffers))),[dispatch, newOffers]);
