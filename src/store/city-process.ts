@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CityName, DEFAULT_CITY, NameSpace } from '../const';
+import { DEFAULT_CITY, NameSpace } from '../const';
 import { setActiveCity } from './api-actions';
 
 
 type CityProcess = {
-activeCity: CityName;
+activeCity: string;
 }
 
 const initialState:CityProcess = {

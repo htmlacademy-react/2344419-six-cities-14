@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks/hooks';
 
-import { CityName } from '../../const';
+import { CityN, CityName } from '../../const';
 import { Link } from 'react-router-dom';
 import { loginAction, setActiveCity } from '../../store/api-actions';
 import { useState } from 'react';
@@ -11,7 +11,10 @@ function PagesLoginContainer():JSX.Element {
   const dispatch = useAppDispatch();
   const [email,setEmail] = useState<string>('');
   const [password,setPassword] = useState<string>('');
-
+  const checkPassword = /^(?=.*[A-Za-zА-Яа-я])(?=.*\d).+$/.test(password);
+  const checkEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const randomCity = Math.floor(Math.random() * (Object.keys(CityName).length));
+  const City = CityN[randomCity];
 
   return (
     <div className="page page--gray page--login">
@@ -19,9 +22,9 @@ function PagesLoginContainer():JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Link className="header__logo-link header__logo-link--active" to="http://localhost:5173/" >
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+              </Link>
             </div>
           </div>
         </div>
@@ -61,7 +64,7 @@ function PagesLoginContainer():JSX.Element {
                 }
               }
               >
-                <button className="login__submit form__submit button" type="submit">
+                <button className="login__submit form__submit button" type="submit" disabled={!checkEmail || !checkPassword}>
                   Sign in
                 </button>
               </Link>
@@ -69,11 +72,11 @@ function PagesLoginContainer():JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="http://localhost:5173/"onClick={
-                ()=> dispatch(setActiveCity(CityName.Amsterdam))
+              <Link className="locations__item-link" to="http://localhost:5173/" onClick={
+                ()=> dispatch(setActiveCity(City))
               }
               >
-                <span>Amsterdam</span>
+                <span>{City}</span>
               </Link>
             </div>
           </section>

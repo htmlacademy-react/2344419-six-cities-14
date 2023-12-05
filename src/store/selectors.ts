@@ -4,7 +4,7 @@ import { TypeOffer } from '../types/types-data';
 
 export const getOffers = (state:State):TypeOffer[]=>state[NameSpace.Offers].offers;
 export const getOffer = (state:State):TypeOffer|undefined=>state[NameSpace.Offer].offer;
-export const getActiveCyty = (state:State) =>state[NameSpace.City].activeCity;
+export const getActiveCity = (state:State) =>state[NameSpace.City].activeCity;
 export const getReviews = (state:State)=> state[NameSpace.Reviews].reviews;
 export const getNearPlaces = (state:State)=> state[NameSpace.NearPlaces].nearPlaces;
 export const getOfferFetchingstatus = (state:State)=> state[NameSpace.Offer].offerFetchingstatus;

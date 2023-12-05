@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { TypeOffer, TypeResponseReview, TypeReview } from '../types/types-data';
-import { APIRoute, CityName, NameSpace } from '../const';
+import { APIRoute, NameSpace } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/data';
 
@@ -11,7 +11,7 @@ export const fetchOffer = createAction<TypeOffer['id']>(`${NameSpace.Offer}/fetc
 export const setOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/set`);
 
 
-export const setActiveCity = createAction<CityName>(`${NameSpace.City}/setActivCity`);
+export const setActiveCity = createAction<string>(`${NameSpace.City}/setActivCity`);
 
 export const setError = createAction<string|null>('/error');
 
@@ -138,3 +138,4 @@ export const logoutAction = createAsyncThunk<void,undefined,{
     dropToken();
   },
 );
+

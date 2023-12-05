@@ -5,7 +5,7 @@ import { useState, memo, useCallback } from 'react';
 import FormComment from './form-comment';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { postComment, postFavorites } from '../store/api-actions';
+import { fetchOfferAction, postComment, postFavorites } from '../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { getAuthorizationStatus } from '../store/selectors';
 
@@ -40,9 +40,19 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   },[dispatch, offer?.id, ratingStars, reviewComment]);
 
   const{isPremium, bedrooms, description, images, title, rating, type, maxAdults, price, host, goods, id, isFavorite} = offer;
+
   const onClickFavoritesCard = useCallback(() => {
-    dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
-  },[dispatch, id, isFavorite, offer]);
+    if(status === AuthorizationStatus.Auth){
+      dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
+      dispatch(fetchOfferAction(id));
+    } else {
+      navigate(AppRoute.Login);
+    }
+  },
+  [dispatch, id, isFavorite, navigate, offer, status]);
+
+
+  const getRating = Math.round(rating) / 5 * 100;
 
 
   return(
@@ -68,10 +78,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
             </h1>
             <button
               onClick={
-                status === AuthorizationStatus.Auth
-                  ? onClickFavoritesCard : () => {
-                    navigate(AppRoute.Login);
-                  }
+                onClickFavoritesCard
               }
 
               className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button"
@@ -84,7 +91,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              <span style={{width: `${Math.round(rating * 20)}%`}}></span>
+              <span style={{width: `${getRating}%`}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
             <span className="offer__rating-value rating__value">{rating}</span>
@@ -94,10 +101,10 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
               {type}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
-              {bedrooms}
+              {bedrooms === 1 ? '1 Bedroom' : `${bedrooms} Bedrooms`}
             </li>
             <li className="offer__feature offer__feature--adults">
-              {maxAdults}
+              `Max {maxAdults === 1 ? '1 adult' : `${maxAdults} adult}`}
             </li>
           </ul>
           <div className="offer__price">
@@ -116,8 +123,8 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
           <div className="offer__host">
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+              <div className="offer__avatar-wrapper  user__avatar-wrapper">
+                <img className="offer__avatar user__avatar" src="https://13.design.pages.academy/static/host/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
               </div>
               <span className="offer__user-name">
                 {host.name}
@@ -134,7 +141,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
               </p>
             </div>
           </div>
-          <OfferReviews reviews={reviews} />
+          <OfferReviews reviews={reviews}/>
 
           {status === AuthorizationStatus.Auth ?
             <FormComment

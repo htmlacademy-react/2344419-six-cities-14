@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CityName, DEFAULT_CITY, NameSpace, RequestStatus } from '../const';
-import { fetchOffersAction, setOffers, } from './api-actions';
+import { CityName, DEFAULT_CITY, DEFAULT_SORTING, NameSpace, RequestStatus } from '../const';
+import { fetchOffersAction, postFavorites, setOffers, } from './api-actions';
 import { TypeOffer, TypeReview } from '../types/types-data';
 
 
@@ -17,6 +17,7 @@ type OffersProcess = {
   error:string | null;
   user:string | null;
   loginSendingStatus:RequestStatus;
+  sortingOption: string;
 }
 
 const initialState:OffersProcess = {
@@ -32,6 +33,8 @@ const initialState:OffersProcess = {
   error:null,
   user:null,
   loginSendingStatus:RequestStatus.Idle,
+  sortingOption: DEFAULT_SORTING,
+
 };
 
 export const offersProcess = createSlice({
@@ -52,8 +55,12 @@ export const offersProcess = createSlice({
       })
       .addCase(setOffers,(state, action) =>{
         state.offers = action.payload;
+      })
+      .addCase(postFavorites.fulfilled,(state, action)=>{
+        const founded = state.offers.find((offer) =>offer.id === action.payload.id);
+        if(founded){
+          founded.isFavorite = action.payload.isFavorite;
+        }
       });
-
-
   }
 });
