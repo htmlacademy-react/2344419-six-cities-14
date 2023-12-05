@@ -13,3 +13,4 @@ export const getOfferId = (state:State)=> state[NameSpace.Offer].offerId;
 export const getFavorites = (state:State)=> state[NameSpace.Favorites].favorites;
 export const getAuthorizationStatus = (state:State):AuthorizationStatus => state[NameSpace.User].authorizationStatus;
 export const getUser = (state:State)=> state[NameSpace.User].user;
+export const getSortingOption = (state: State):string => state[NameSpace.Offers].sortingOption;

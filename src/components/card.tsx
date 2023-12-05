@@ -16,8 +16,8 @@ type CitesPlacesProps = {
 function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX.Element{
 
   const dispatch = useAppDispatch();
-
   const {price, previewImage, rating, isFavorite, type, isPremium, id, title} = offer;
+  const getRating = Math.round(rating) / 5 * 100;
 
   const status = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
     } else {
       navigate(AppRoute.Login);
     }
-  },[]
-  );
+  },
+  [dispatch, id, isFavorite, navigate, offer, status]);
 
   return (
     <article className={`${fromFavorite ? 'favorites__card' : 'cities__card'} place-card`} onMouseEnter={(event)=>{
@@ -68,7 +68,7 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(rating * 20)}%`,}}></span>
+            <span style={{width: `${getRating}%`,}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -43,6 +43,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   const onClickFavoritesCard = useCallback(() => {
     dispatch(postFavorites({offer, offerId: id, status: isFavorite ? 0 : 1}));
   },[dispatch, id, isFavorite, offer]);
+  const getRating = Math.round(rating) / 5 * 100;
 
 
   return(
@@ -84,7 +85,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              <span style={{width: `${Math.round(rating * 20)}%`}}></span>
+              <span style={{width: `${getRating}%`}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
             <span className="offer__rating-value rating__value">{rating}</span>
@@ -97,7 +98,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
               {bedrooms === 1 ? '1 Bedroom' : `${bedrooms} Bedrooms`}
             </li>
             <li className="offer__feature offer__feature--adults">
-              {maxAdults}
+              `Max {maxAdults === 1 ? '1 adult' : `${maxAdults} adult}`}
             </li>
           </ul>
           <div className="offer__price">
@@ -116,8 +117,8 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
           <div className="offer__host">
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
-              <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+              <div className="offer__avatar-wrapper  user__avatar-wrapper">
+                <img className="offer__avatar user__avatar" src="https://13.design.pages.academy/static/host/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
               </div>
               <span className="offer__user-name">
                 {host.name}

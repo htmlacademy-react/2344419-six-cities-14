@@ -40,7 +40,7 @@ function PagesMainContainer(): JSX.Element {
     }
   },[dispatch, user]);
 
-  const newOffers = useMemo(() => offers?.filter((item:TypeOffer)=> item.city.name === activeCity as string), [activeCity, offers]);//по городу
+  const newOffers = useMemo(() => offers?.filter((item:TypeOffer)=> item.city.name === activeCity as string), [activeCity, offers]);
 
   const onChange = useCallback((type:TypeSorting) =>
     dispatch(setOffers(sortingPoint[type](newOffers))),[dispatch, newOffers]);
@@ -50,7 +50,7 @@ function PagesMainContainer(): JSX.Element {
     <div className="page page--gray page--main">
       <Header/>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${newOffers.length === 0 ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -66,6 +66,7 @@ function PagesMainContainer(): JSX.Element {
                     onClick={
                       ()=>{
                         dispatch(setActiveCity(elem));
+                        dispatch(fetchOffersAction());
                       }
                     }
                   >

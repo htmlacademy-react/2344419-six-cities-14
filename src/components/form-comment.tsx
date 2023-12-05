@@ -1,5 +1,5 @@
 import { memo } from 'react';
-//import { DEFAULT_VALUE_NULL, LengthComment } from '../const';
+import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
 
 type FormComentProps ={
   reviewComment: string;
@@ -11,17 +11,14 @@ type FormComentProps ={
 
 function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChangeHandle, handleSubmit}: FormComentProps):JSX.Element{
 
-  //const isCommentLengthValid = ((reviewComment.split('')).length >= LengthComment.MIN &&(reviewComment.split('')).length <= LengthComment.MAX);
-  //const isValid = !(isCommentLengthValid && ratingStars !== DEFAULT_VALUE_NULL);
-
   return (
     <form
+      className="reviews__form form" action="#" method="post"
       onSubmit={(evt) =>{
         evt.preventDefault();
         handleSubmit();
 
       }}
-      className="reviews__form form" action="#" method="post"
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -52,12 +49,12 @@ function FormComment({reviewComment, fieldChangeHandle, ratingStars, ratingChang
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-        To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+        To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
+          <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-        //disabled={isValid}
-
           className="reviews__submit form__submit button" type="submit"
+          disabled={reviewComment.length < MIN_LENGTH_COMMENT || reviewComment.length > MAX_LENGTH_COMMENT || !ratingStars.some((e)=> e === true)}
         >Submit
         </button>
       </div>

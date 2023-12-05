@@ -66,17 +66,17 @@ export enum MONTH_NAMES {
   'August', 'September', 'October',
   'November', 'December'
 }
-export enum LengthComment {
-  MIN = 50,
-  MAX = 300
-}
+
+export const MAX_LENGTH_COMMENT = 300;
+export const MIN_LENGTH_COMMENT = 50;
+export const DEFAULT_VALUE_NULL = 0;
 
 export const MAX_CUNT_NEAR_PLACES = 3;
 export const MAX_LENGTH_REVIEW = 10;
-export const DEFAULT_VALUE_NULL = 0;
 
 export const URL_MARKER_DEFAULT = '../img/pin.svg';
 
 export const URL_MARKER_CURRENT = '../img/pin-active.svg';
 export const DEFAULT_CITY = CityName.Paris;
+export const DEFAULT_SORTING = 'Popular';
 

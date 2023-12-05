@@ -2,11 +2,13 @@ import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { TypeOffer } from '../../types/types-data';
 import PagesCard from '../../components/card';
-import { getFavorites } from '../../store/selectors';
+import { getAuthorizationStatus, getFavorites } from '../../store/selectors';
 import { setActiveCity } from '../../store/api-actions';
-import { CityName } from '../../const';
-import { Link } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, CityName } from '../../const';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
+import { useEffect} from 'react';
+
 
 function getFavoriteByCity(favorites:TypeOffer[]){
   return favorites.reduce<{[key:string]:TypeOffer[]}>((acc,curr) => {
@@ -21,22 +23,32 @@ function getFavoriteByCity(favorites:TypeOffer[]){
 
 
 function PagesFavoritesContainer():JSX.Element{
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const favorites = useAppSelector(getFavorites);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
 
   const favoriteByCity = getFavoriteByCity(favorites);
-  return(
-    favorites ?
-      <div className="page">
-        <Header/>
 
+  useEffect(()=>{
+
+    if(authorizationStatus === AuthorizationStatus.NoAuth){
+
+      navigate(AppRoute.Login);
+    }
+  },[authorizationStatus, navigate]);
+
+
+  return (
+    <div className="page">
+      <Header/>
+      {favorites.length === 0 ?
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             <Helmet>
               <title>
-              Избранное
+          Избранное
               </title>
             </Helmet>
             <section className="favorites favorites--empty">
@@ -47,17 +59,8 @@ function PagesFavoritesContainer():JSX.Element{
               </div>
             </section>
           </div>
-          <footer className="footer container">
-            <a className="footer__logo-link" href="main.html">
-              <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-            </a>
-          </footer>
         </main>
-      </div>
-      :
-      <div className="page">
-        <Header/>
-
+        :
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             <Helmet>
@@ -104,13 +107,14 @@ function PagesFavoritesContainer():JSX.Element{
               </ul>
             </section>
           </div>
-        </main>
-        <footer className="footer container">
-          <a className="footer__logo-link" href="main.html">
-            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-          </a>
-        </footer>
-      </div>
+        </main>}
+
+      <footer className="footer container">
+        <a className="footer__logo-link" href="main.html">
+          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
+        </a>
+      </footer>
+    </div>
   );
 }
 export default PagesFavoritesContainer;

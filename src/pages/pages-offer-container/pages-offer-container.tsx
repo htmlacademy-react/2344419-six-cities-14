@@ -20,9 +20,10 @@ function PagesOfferContainer():JSX.Element{
   const reviews = useAppSelector(getReviews);
   const nearPlaces = useAppSelector(getNearPlaces);
   const fetchingStatus = useAppSelector(getOfferFetchingstatus);
+  const nearPlacesPoint = nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES);
 
 
-  const filteredOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
+  //const filteredOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
 
 
   const { id } = useParams();
@@ -39,7 +40,7 @@ function PagesOfferContainer():JSX.Element{
   }, [id,dispatch]);
 
   return (
-    <>
+    <main className="page__main page__main--offer">
       {fetchingStatus === RequestStatus.Error && <PagesNotFoundContainer/>}
       {fetchingStatus === RequestStatus.Pending && <LoadingSpiner/>}
       {fetchingStatus === RequestStatus.Success && (
@@ -54,21 +55,21 @@ function PagesOfferContainer():JSX.Element{
               <OfferCard offer={offer} reviews={reviews}/>
               : <div></div>}
             <section className="offer__map map">
-              <MainMap offers={filteredOffers} selectedPoint={id} fromOffer/>
+              <MainMap offers={nearPlacesPoint} selectedPoint={id} fromOffer/>
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <OffersReviewsList offers={nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES)} />
+                <OffersReviewsList offers={nearPlacesPoint} />
               </div>
             </section>
           </div>
         </div>
 
       )}
-    </>
+    </main>
   );
 }
 

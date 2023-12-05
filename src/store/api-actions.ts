@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { TypeOffer, TypeResponseReview, TypeReview } from '../types/types-data';
-import { APIRoute, CityName, NameSpace } from '../const';
+import { APIRoute, NameSpace } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData, UserData } from '../types/data';
 
@@ -138,3 +138,4 @@ export const logoutAction = createAsyncThunk<void,undefined,{
     dropToken();
   },
 );
+
