@@ -103,7 +103,7 @@ export const postFavorites = createAsyncThunk<TypeOffer, {offer :TypeOffer; offe
   }
 );
 
-export const checkOutAction = createAsyncThunk<UserData, undefined, {
+export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   state:State;
   extra: AxiosInstance;
 }>

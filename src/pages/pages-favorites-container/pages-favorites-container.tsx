@@ -76,7 +76,7 @@ function PagesFavoritesContainer():JSX.Element{
                     <li className="favorites__locations-items" key={city}>
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <Link className="locations__item-link" to="http://localhost:5173/"onClick={
+                          <Link className="locations__item-link" to={AppRoute.Main}onClick={
                             ()=> dispatch(setActiveCity(city as CityName))
                           }
                           >

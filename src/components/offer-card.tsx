@@ -4,7 +4,7 @@ import OfferReviews from './offer-reviews';
 import { useState, memo, useCallback } from 'react';
 import FormComment from './form-comment';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus, MAX_OFFER_IMAGES } from '../const';
 import { fetchOfferAction, postComment, postFavorites } from '../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { getAuthorizationStatus } from '../store/selectors';
@@ -59,7 +59,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
     <>
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {images.map((image)=> (
+          {images.slice(0, MAX_OFFER_IMAGES).map((image)=> (
             <div key={image} className="offer__image-wrapper">
               <img className="offer__image" src={image} alt="Photo studio"/>
             </div>
@@ -104,7 +104,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
               {bedrooms === 1 ? '1 Bedroom' : `${bedrooms} Bedrooms`}
             </li>
             <li className="offer__feature offer__feature--adults">
-              `Max {maxAdults === 1 ? '1 adult' : `${maxAdults} adult}`}
+              `Max {maxAdults === 1 ? '1 adult' : `${maxAdults} adults`}
             </li>
           </ul>
           <div className="offer__price">
