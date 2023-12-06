@@ -11,8 +11,6 @@ import PublicRoute from '../route/public-route.tsx';
 import { useAppSelector } from '../../hooks/hooks.ts';
 import { getAuthorizationStatus } from '../../store/selectors.ts';
 
-
-
 export default function App():JSX.Element{
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
