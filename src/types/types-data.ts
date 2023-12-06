@@ -51,6 +51,7 @@ export type TypeReview = {
 };
 
 export type TypeResponseReview = {
-  comment: string;
+    comment: string;
   rating: number;
+
 };
