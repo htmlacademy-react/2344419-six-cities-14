@@ -1,7 +1,7 @@
 
 import { TypeOffer, TypeReview } from '../types/types-data';
 import OfferReviews from './offer-reviews';
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { AppRoute, AuthorizationStatus, MAX_OFFER_IMAGES } from '../const';
 import { fetchOfferAction, postFavorites } from '../store/api-actions';
@@ -132,4 +132,4 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   );
 }
 
-export default memo(OfferCard);
+export default OfferCard;

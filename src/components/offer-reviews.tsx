@@ -1,7 +1,6 @@
 
 import { DEFAULT_VALUE_NULL, MAX_LENGTH_REVIEW, MONTH_NAMES } from '../const';
 import { TypeReview } from '../types/types-data';
-import { memo } from 'react';
 
 
 type OfferCardProps = {
@@ -66,4 +65,4 @@ function OfferReviews({reviews}:OfferCardProps):JSX.Element{
     </section>
   );
 }
-export default memo(OfferReviews);
+export default OfferReviews;

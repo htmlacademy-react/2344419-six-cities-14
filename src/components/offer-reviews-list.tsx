@@ -1,6 +1,5 @@
 import { TypeOffer } from '../types/types-data';
 import PagesCard from './card';
-import { memo } from 'react';
 
 
 type OffersListProps = {
@@ -18,4 +17,4 @@ function OffersReviewsList({ offers}: OffersListProps): JSX.Element {
 }
 
 
-export default memo(OffersReviewsList);
+export default OffersReviewsList;

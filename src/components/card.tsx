@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { postFavorites } from '../store/api-actions';
 import { getAuthorizationStatus } from '../store/selectors';
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 
 
 type CitesPlacesProps = {
@@ -80,4 +80,4 @@ function PagesCard({offer, onListItemHover, fromFavorite} :CitesPlacesProps):JSX
     </article>
   );
 }
-export default memo(PagesCard);
+export default PagesCard;
