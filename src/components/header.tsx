@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { useAppSelector, useAppDispatch } from '../hooks/hooks';
 import { getAuthorizationStatus, getFavorites, getUser } from '../store/selectors';
-import { memo } from 'react';
 import { logoutAction } from '../store/api-actions';
 
 
@@ -46,7 +45,7 @@ function Header():JSX.Element{
             ) : (
               <ul className="header__nav-list">
                 <li className="header__nav-item">
-                  <a className="header__nav-link header__nav-link--profile" href="http://localhost:5173/login">
+                  <a className="header__nav-link header__nav-link--profile" href={AppRoute.Login}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__login">Sign in</span>
@@ -61,4 +60,4 @@ function Header():JSX.Element{
     </header>
   );
 }
-export default memo(Header);
+export default Header;

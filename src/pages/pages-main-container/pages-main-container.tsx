@@ -62,7 +62,7 @@ function PagesMainContainer(): JSX.Element {
             <ul className="locations__list tabs__list">
               {Object.values(CityName).map((elem) => (
                 <li key={elem} className="locations__item">
-                  <a className={`locations__item-link tabs__item ${elem === activeCity ? 'tabs__item--active' : ''}`}
+                  <a className={`locations__item-link tabs__item ${elem === (activeCity as typeof elem) ? 'tabs__item--active' : ''}`}
                     onClick={
                       ()=>{
                         dispatch(setActiveCity(elem));
