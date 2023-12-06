@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
 
 type FormComentProps ={
