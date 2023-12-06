@@ -1,3 +1,13 @@
+import { memo } from 'react';
+import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
+
+type FormComentProps ={
+  reviewComment: string;
+  fieldChangeHandle: (value: string)=> void;
+  ratingStars: boolean[];
+  ratingChangeHandle: (value: boolean[])=> void;
+  handleSubmit:()=>void;
+}
 
 import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
 import { useState, FormEvent, ChangeEvent, Fragment} from 'react';
@@ -30,6 +40,7 @@ function FormComment():JSX.Element{
   function fieldChangeHandle (evt: ChangeEvent<HTMLTextAreaElement>) {
     setReviewComment(evt.target.value);
   }
+
 
   function ratingChangeHandle (evt: ChangeEvent<HTMLInputElement>) {
     setRatingStars(evt.target.value);

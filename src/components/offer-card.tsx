@@ -33,9 +33,7 @@ function OfferCard({offer, reviews}:OfferCardProps):JSX.Element{
   },
   [dispatch, id, isFavorite, navigate, offer, status]);
 
-
   const getRating = Math.round(rating) / 5 * 100;
-
 
   return(
     <>

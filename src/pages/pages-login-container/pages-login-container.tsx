@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-
 import { AppRoute, AuthorizationStatus, CityN, CityName } from '../../const';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAction, setActiveCity } from '../../store/api-actions';
@@ -77,6 +76,7 @@ function PagesLoginContainer():JSX.Element {
                 className="login__input form__input" type="password" name="password" placeholder="Password" value={password} required
                 />
               </div>
+
               <button className="login__submit form__submit button" type="submit" disabled={!checkEmail || !checkPassword}>
                   Sign in
               </button>

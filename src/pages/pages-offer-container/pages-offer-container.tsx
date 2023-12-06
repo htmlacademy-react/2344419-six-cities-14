@@ -21,7 +21,6 @@ function PagesOfferContainer():JSX.Element{
   const fetchingStatus = useAppSelector(getOfferFetchingstatus);
   const nearPlacesPoint = nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES);
 
-
   const { id } = useParams();
 
   useEffect(() => {

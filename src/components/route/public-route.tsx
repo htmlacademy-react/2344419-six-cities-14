@@ -1,7 +1,6 @@
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
-
 type RedirectProps = {
   children: JSX.Element;
   authorizationStatus: AuthorizationStatus;

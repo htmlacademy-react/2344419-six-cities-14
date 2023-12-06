@@ -5,6 +5,7 @@ import { getAuthorizationStatus, getFavorites, getUser } from '../store/selector
 import { memo } from 'react';
 import { logoutAction } from '../store/api-actions';
 
+
 function Header():JSX.Element{
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const favorites = useAppSelector(getFavorites);
