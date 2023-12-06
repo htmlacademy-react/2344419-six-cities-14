@@ -16,16 +16,10 @@ function PagesOfferContainer():JSX.Element{
   const dispatch = useAppDispatch();
 
   const offer = useAppSelector(getOffer);
-  //const offers = useAppSelector(getOffers);
-  //const activeCity = useAppSelector(getActiveCyty);
   const reviews = useAppSelector(getReviews);
   const nearPlaces = useAppSelector(getNearPlaces);
   const fetchingStatus = useAppSelector(getOfferFetchingstatus);
   const nearPlacesPoint = nearPlaces.slice(0,MAX_CUNT_NEAR_PLACES);
-
-
-  //const filteredOffers = useMemo(() => offers?.filter((item)=> item.city.name === activeCity as string), [activeCity, offers]);
-
 
   const { id } = useParams();
 

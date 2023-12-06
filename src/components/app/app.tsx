@@ -8,10 +8,11 @@ import PagesLoginContainer from '../../pages/pages-login-container/pages-login-c
 import PagesOfferContainer from '../../pages/pages-offer-container/pages-offer-container.tsx';
 import PrivateRoute from '../route/private-route.tsx';
 import PublicRoute from '../route/public-route.tsx';
-
+import { useAppSelector } from '../../hooks/hooks.ts';
+import { getAuthorizationStatus } from '../../store/selectors.ts';
 
 export default function App():JSX.Element{
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return(
     <HelmetProvider>
@@ -24,7 +25,7 @@ export default function App():JSX.Element{
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute>
+              <PrivateRoute authorizationStatus={authorizationStatus} redirectionTo={AppRoute.Login}>
                 <PagesFavoritesContainer/>
               </PrivateRoute>
             }
@@ -32,7 +33,7 @@ export default function App():JSX.Element{
           <Route
             path={AppRoute.Login}
             element={
-              <PublicRoute>
+              <PublicRoute authorizationStatus={authorizationStatus}>
                 <PagesLoginContainer />
               </PublicRoute>
             }
