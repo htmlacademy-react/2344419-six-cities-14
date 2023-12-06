@@ -1,14 +1,4 @@
 import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
-
-type FormComentProps ={
-  reviewComment: string;
-  fieldChangeHandle: (value: string)=> void;
-  ratingStars: boolean[];
-  ratingChangeHandle: (value: boolean[])=> void;
-  handleSubmit:()=>void;
-}
-
-import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
 import { useState, FormEvent, ChangeEvent, Fragment} from 'react';
 import { postComment } from '../store/api-actions';
 import { useAppDispatch } from '../hooks/hooks';
@@ -22,11 +12,6 @@ const RatingMap = {
   '2': 'badly',
   '1': 'terribly'
 };
-
-// type FormComentProps ={
-//   reviewComment: string;
-//   ratingStars: string;
-// }
 
 function FormComment():JSX.Element{
   const {id: offerId} = useParams();
