@@ -52,12 +52,12 @@ function MainMap({ offers, selectedPoint, fromOffer }: ListProps) {
       style={
         fromOffer
           ? {
-              height: '100%',
-              minHeight: '500px',
-              width: '100%',
-              maxWidth: '1144px',
-              margin: '0 auto',
-            }
+            height: '100%',
+            minHeight: '500px',
+            width: '100%',
+            maxWidth: '1144px',
+            margin: '0 auto',
+          }
           : { height: 772, width: '100%' }
       }
       ref={mapRef}
