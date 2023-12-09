@@ -16,7 +16,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
   NotFound = '/404'
 }
 
@@ -33,7 +33,7 @@ export enum RequestStatus {
   Error = 'ERROR',
 }
 
-export const CityN = [
+export const CityNameString = [
   'Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg','Dusseldorf'
 ];
 
@@ -61,9 +61,9 @@ export enum NameSpace {
 
 export enum Sorting {
   Popular = 'Popular',
-  LowToHigh = 'Price: low to high',// От дешёвых к дорогим.
-  HighToLow = 'Price: high to low',// От дорогих к дешёвым.
-  TopRated = 'Top rated first',//От высокого рейтинга к низкому.
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
 }
 
 export enum APIRoute {

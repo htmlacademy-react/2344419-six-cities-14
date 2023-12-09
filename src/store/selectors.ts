@@ -3,6 +3,7 @@ import { State } from '../types/state';
 import { TypeOffer } from '../types/types-data';
 
 export const getOffers = (state:State):TypeOffer[]=>state[NameSpace.Offers].offers;
+export const getOriginalOffers = (state:State):TypeOffer[]=>state[NameSpace.Offers].originalOffers;
 export const getOffer = (state:State):TypeOffer|undefined=>state[NameSpace.Offer].offer;
 export const getActiveCity = (state:State) =>state[NameSpace.City].activeCity;
 export const getReviews = (state:State)=> state[NameSpace.Reviews].reviews;
@@ -13,3 +14,4 @@ export const getOfferId = (state:State)=> state[NameSpace.Offer].offerId;
 export const getFavorites = (state:State)=> state[NameSpace.Favorites].favorites;
 export const getAuthorizationStatus = (state:State):AuthorizationStatus => state[NameSpace.User].authorizationStatus;
 export const getUser = (state:State)=> state[NameSpace.User].user;
+export const getSortType = (state:State): string | null => state[NameSpace.Offers].sortType;

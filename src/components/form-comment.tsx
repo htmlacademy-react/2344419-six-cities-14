@@ -1,5 +1,5 @@
 import { MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT } from '../const';
-import { useState, FormEvent, ChangeEvent, Fragment} from 'react';
+import { useState, FormEvent, ChangeEvent, Fragment } from 'react';
 import { postComment } from '../store/api-actions';
 import { useAppDispatch } from '../hooks/hooks';
 import { TypeResponseReview } from '../types/types-data';
@@ -10,23 +10,21 @@ const RatingMap = {
   '4': 'good',
   '3': 'not bad',
   '2': 'badly',
-  '1': 'terribly'
+  '1': 'terribly',
 };
 
-function FormComment():JSX.Element{
-  const {id: offerId} = useParams();
+function FormComment(): JSX.Element {
+  const { id: offerId } = useParams();
 
-  const [reviewComment,setReviewComment] = useState<string>('');
+  const [reviewComment, setReviewComment] = useState<string>('');
   const [ratingStars, setRatingStars] = useState<string>('');
   const dispatch = useAppDispatch();
 
-
-  function fieldChangeHandle (evt: ChangeEvent<HTMLTextAreaElement>) {
+  function fieldChangeHandle(evt: ChangeEvent<HTMLTextAreaElement>) {
     setReviewComment(evt.target.value);
   }
 
-
-  function ratingChangeHandle (evt: ChangeEvent<HTMLInputElement>) {
+  function ratingChangeHandle(evt: ChangeEvent<HTMLInputElement>) {
     setRatingStars(evt.target.value);
   }
 
@@ -42,27 +40,29 @@ function FormComment():JSX.Element{
     setDisableStatus(true);
     const review: TypeResponseReview = {
       rating: Number(ratingStars),
-      comment: reviewComment
+      comment: reviewComment,
     };
 
-    dispatch(postComment({reviewData:review, offerId:offerId!})).unwrap()
+    dispatch(postComment({ reviewData: review, offerId: offerId! }))
+      .unwrap()
       .then(() => {
         resetForm();
       })
-      .catch(() => { })
+      .catch(() => {})
       .finally(() => setDisableStatus(false));
   }
 
   return (
     <form
-      className="reviews__form form" action="#" method="post"
-      onSubmit={
-        handleSubmit
-      }
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={handleSubmit}
     >
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <label className="reviews__label form__label" htmlFor="review">
+        Your review
+      </label>
       <div className="reviews__rating-form form__rating">
-
         {Object.entries(RatingMap)
           .reverse()
           .map(([key, title]) => (
@@ -81,7 +81,7 @@ function FormComment():JSX.Element{
                 htmlFor={`${key}-stars`}
                 className="reviews__rating-label form__rating-label"
                 title={title}
-                data-testid='star-item'
+                data-testid="star-item"
               >
                 <svg className="form__star-image" width="37" height="33">
                   <use xlinkHref="#icon-star"></use>
@@ -90,22 +90,32 @@ function FormComment():JSX.Element{
             </Fragment>
           ))}
       </div>
-      <textarea onChange={fieldChangeHandle} className="reviews__textarea form__textarea"
-        id="review" name="review"
+      <textarea
+        onChange={fieldChangeHandle}
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewComment}
-      >
-
-      </textarea>
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-            To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least
+          To submit review please make sure to set{' '}
+          <span className="reviews__star">rating</span> and describe your stay
+          with at least
           <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          className="reviews__submit form__submit button" type="submit"
-          disabled={reviewComment.length < MIN_LENGTH_COMMENT || reviewComment.length > MAX_LENGTH_COMMENT || ratingStars === '' || isDisabled}
-        >Submit
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={
+            reviewComment.length < MIN_LENGTH_COMMENT ||
+            reviewComment.length > MAX_LENGTH_COMMENT ||
+            ratingStars === '' ||
+            isDisabled
+          }
+        >
+          Submit
         </button>
       </div>
     </form>

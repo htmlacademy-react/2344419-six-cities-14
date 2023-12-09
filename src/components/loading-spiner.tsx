@@ -1,6 +1,5 @@
 function LoadingSpiner (): JSX.Element {
   return (
-
     <div
       style={{
         display: 'flex',
@@ -10,7 +9,6 @@ function LoadingSpiner (): JSX.Element {
       className="spinner spinner-bg spinner-alert"
     >
     </div>
-
   );
 }
 

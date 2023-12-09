@@ -6,6 +6,7 @@ import { TypeOffer, TypeReview } from '../types/types-data';
 
 type OffersProcess = {
   offers: TypeOffer[];
+  originalOffers: TypeOffer[];
   offersFetchingstatus:RequestStatus;
   nearPlaces: TypeOffer[];
   nearbyFetchingstatus: RequestStatus;
@@ -17,11 +18,12 @@ type OffersProcess = {
   error:string | null;
   user:string | null;
   loginSendingStatus:RequestStatus;
-  sortingOption: string;
+  sortType: string;
 }
 
 const initialState:OffersProcess = {
   offers:[],
+  originalOffers:[],
   offersFetchingstatus:RequestStatus.Idle,
   nearPlaces:[],
   nearbyFetchingstatus: RequestStatus.Idle,
@@ -33,8 +35,7 @@ const initialState:OffersProcess = {
   error:null,
   user:null,
   loginSendingStatus:RequestStatus.Idle,
-  sortingOption: DEFAULT_SORTING,
-
+  sortType: DEFAULT_SORTING,
 };
 
 export const offersProcess = createSlice({
@@ -49,6 +50,7 @@ export const offersProcess = createSlice({
       .addCase(fetchOffersAction.fulfilled,(state, action) =>{
         state.offersFetchingstatus = RequestStatus.Success;
         state.offers = action.payload;
+        state.originalOffers = action.payload;
       })
       .addCase(fetchOffersAction.rejected,(state) =>{
         state.offersFetchingstatus = RequestStatus.Error;

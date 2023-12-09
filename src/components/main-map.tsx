@@ -1,16 +1,15 @@
-import {useRef, useEffect} from 'react';
-import leaflet, {layerGroup, Marker } from 'leaflet';
+import { useRef, useEffect } from 'react';
+import leaflet, { layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { TypeOffer } from '../types/types-data';
 import { DEFAULT_CITY, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import useMap from './use-map';
 
-
 type ListProps = {
   offers: TypeOffer[];
   selectedPoint?: string;
   fromOffer?: boolean;
-}
+};
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -24,9 +23,9 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [13.5, 39],
 });
 
-function MainMap({ offers, selectedPoint, fromOffer}:ListProps) {
+function MainMap({ offers, selectedPoint, fromOffer }: ListProps) {
   const mapRef = useRef(null);
-  const map = useMap({mapRef, city: offers?.[0]?.city || DEFAULT_CITY});
+  const map = useMap({ mapRef, city: offers?.[0]?.city || DEFAULT_CITY });
 
   useEffect(() => {
     if (map) {
@@ -50,17 +49,20 @@ function MainMap({ offers, selectedPoint, fromOffer}:ListProps) {
 
   return (
     <div
-      style={fromOffer ? {
-        height:'100%',
-        minHeight:'500px',
-        width:'100%',
-        maxWidth:'1144px',
-        margin:'0 auto',} : {height: 772, width:'100%'}}
+      style={
+        fromOffer
+          ? {
+              height: '100%',
+              minHeight: '500px',
+              width: '100%',
+              maxWidth: '1144px',
+              margin: '0 auto',
+            }
+          : { height: 772, width: '100%' }
+      }
       ref={mapRef}
-    >
-    </div>
+    ></div>
   );
 }
 
 export default MainMap;
-

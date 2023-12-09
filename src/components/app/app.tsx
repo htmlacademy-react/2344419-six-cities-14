@@ -39,7 +39,7 @@ export default function App():JSX.Element{
             }
           />
           <Route
-            path={AppRoute.Offer}
+            path={`${AppRoute.Offer}/:id`}
             element={<PagesOfferContainer />}
           />
           <Route

@@ -31,5 +31,6 @@ export const createAPI = ():AxiosInstance => {
       throw error;
     }
   );
+
   return api;
 };

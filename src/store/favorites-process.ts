@@ -31,7 +31,7 @@ export const favoritesProcess = createSlice({
         if(payload.isFavorite){
           state.favorites.push(payload);
         } else {
-          state.favorites = state.favorites.filter((fav)=> fav.id !== payload.id);
+          state.favorites = state.favorites.filter((favorite)=> favorite.id !== payload.id);
         }
       });
   }
