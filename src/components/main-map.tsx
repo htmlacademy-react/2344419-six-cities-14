@@ -61,7 +61,8 @@ function MainMap({ offers, selectedPoint, fromOffer }: ListProps) {
           : { height: 772, width: '100%' }
       }
       ref={mapRef}
-    ></div>
+    >
+    </div>
   );
 }
 
