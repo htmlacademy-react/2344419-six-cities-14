@@ -1,5 +1,5 @@
 
-import { TypeOffer } from './types/types-data';
+import { TypeOffer } from '../types/types-data';
 
 type UtilsType = {
   sityName: string;
@@ -20,5 +20,6 @@ function sortLowToHigh(a:TypeOffer, b:TypeOffer){
 function sortHighToLow(a:TypeOffer, b:TypeOffer){
   return b.price - a.price;
 }
+
 
 export {filterCity, sortByRating, sortLowToHigh, sortHighToLow};

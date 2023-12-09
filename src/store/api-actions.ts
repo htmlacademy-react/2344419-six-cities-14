@@ -10,7 +10,6 @@ export const fetchOffer = createAction<TypeOffer['id']>(`${NameSpace.Offer}/fetc
 
 export const setOffers = createAction<TypeOffer[]>(`${NameSpace.Offers}/set`);
 
-
 export const setActiveCity = createAction<string>(`${NameSpace.City}/setActivCity`);
 
 export const setError = createAction<string|null>('/error');
@@ -26,6 +25,7 @@ export const fetchOffersAction = createAsyncThunk<TypeOffer[], undefined, {
   `${NameSpace.Offers}/fetchOffers`,
   async(_,{ extra:api })=>{
     const {data} = await api.get<TypeOffer[]>(APIRoute.Offers);
+
     return data;
   }
 );
@@ -38,6 +38,7 @@ export const fetchOfferAction = createAsyncThunk<TypeOffer, string, {
   `${NameSpace.Offer}/fetchOffer`,
   async(offerId,{ extra:api })=>{
     const {data} = await api.get<TypeOffer>(`${APIRoute.Offers}/${offerId}`);
+
     return data;
   }
 );
@@ -50,6 +51,7 @@ export const fetchCommentsAction = createAsyncThunk<TypeReview[], TypeOffer['id'
   `${NameSpace.Reviews}/fetchComments`,
   async(offerId,{ extra:api })=>{
     const { data } = await api.get<TypeReview[]>(`${APIRoute.Comments}/${offerId}`);
+
     return data;
   }
 );
@@ -62,6 +64,7 @@ export const postComment = createAsyncThunk<TypeReview, {reviewData :TypeRespons
   `${NameSpace.Reviews}/postComment`,
   async({reviewData, offerId},{ extra:api })=>{
     const { data } = await api.post<TypeReview>(`${APIRoute.Comments}/${offerId}`, reviewData);
+
     return data;
   }
 );
@@ -75,6 +78,7 @@ export const fetchNearbyPlaces = createAsyncThunk<TypeOffer[], TypeOffer['id'], 
   `${NameSpace.NearPlaces }/fetchNearby`,
   async(offerId,{ extra:api })=>{
     const { data } = await api.get<TypeOffer[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
+
     return data;
   }
 );
@@ -87,6 +91,7 @@ export const fetchFavoritesAction = createAsyncThunk<TypeOffer[], undefined, {
   `${NameSpace.Favorites}/fetchFavorites`,
   async(_arg,{ extra:api })=>{
     const { data } = await api.get<TypeOffer[]>(APIRoute.Favorites);
+
     return data;
   }
 );
@@ -99,6 +104,7 @@ export const postFavorites = createAsyncThunk<TypeOffer, {offer :TypeOffer; offe
   `${NameSpace.Favorites}/postFavorites`,
   async({offer, offerId, status},{ extra:api })=>{
     const { data } = await api.post<TypeOffer>(`${APIRoute.Favorites}/${offerId}/${status}`, offer);
+
     return data;
   }
 );
@@ -111,6 +117,7 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   `${NameSpace.User}/checkAuth`,
   async(_arg, { extra:api })=>{
     const { data } = await api.get<UserData>(APIRoute.Login);
+
     return data;
   }
 );
@@ -124,6 +131,7 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
   async(loginData, {extra:api})=>{
     const {data} = await api.post<UserData>(APIRoute.Login,loginData);
     saveToken(data.token);
+
     return data;
   }
 );
