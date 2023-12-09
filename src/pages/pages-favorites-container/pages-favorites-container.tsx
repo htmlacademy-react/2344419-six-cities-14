@@ -73,8 +73,7 @@ function PagesFavoritesContainer(): JSX.Element {
                             className="locations__item-link"
                             to={AppRoute.Main}
                             onClick={() =>
-                              dispatch(setActiveCity(city as CityName))
-                            }
+                              dispatch(setActiveCity(city as CityName))}
                           >
                             <span>{city}</span>
                           </Link>
